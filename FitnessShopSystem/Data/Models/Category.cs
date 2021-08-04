@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace FitnessShopSystem.Data.Models
+﻿namespace FitnessShopSystem.Data.Models
 {
+    using System.Collections.Generic;
+
     public class Category
     {
         public Category()

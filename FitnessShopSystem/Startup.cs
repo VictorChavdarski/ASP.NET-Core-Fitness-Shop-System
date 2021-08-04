@@ -1,6 +1,7 @@
 namespace FitnessShopSystem
 {
     using FitnessShopSystem.Data;
+    using FitnessShopSystem.Infrastructure;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
@@ -12,15 +13,15 @@ namespace FitnessShopSystem
     public class Startup
     {
         public Startup(IConfiguration configuration)
-            => Configuration = configuration;
+            => this.Configuration = configuration;
 
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddDbContext<ApplicationDbContext>(options => options
-                    .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                .AddDbContext<FitnessShopDbContext>(options => options
+                    .UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -32,7 +33,7 @@ namespace FitnessShopSystem
                     options.Password.RequireUppercase = false;
                     options.Password.RequireNonAlphanumeric = false;
                 })
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<FitnessShopDbContext>();
 
             services
                 .AddControllersWithViews();
@@ -41,6 +42,8 @@ namespace FitnessShopSystem
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.PrepareDatabase();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -63,6 +66,8 @@ namespace FitnessShopSystem
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapRazorPages();
             });
+
+           
         }
     }
 }

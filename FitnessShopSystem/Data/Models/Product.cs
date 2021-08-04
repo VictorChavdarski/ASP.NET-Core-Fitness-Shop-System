@@ -8,11 +8,11 @@
     {
         public int Id { get; init; }
 
-        public decimal Price { get; set; }
-
         [Required]
-        [MaxLength(ProductNameMaxLength)]
-        public string Name { get; set; }
+        [MaxLength(ProductBrandMaxLength)]
+        public string Brand { get; set; }
+
+        public decimal Price { get; set; }
 
         [Required]
         [MaxLength(ProductDescriptionMaxLength)]
@@ -22,7 +22,7 @@
 
         public int CategoryId { get; set; }
 
-        public Category Category { get; set; }
+        public Category Category { get; init; }
 
     }
 }
