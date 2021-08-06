@@ -3,19 +3,19 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using static Data.DataConstants;
+    using static Data.DataConstants.Product;
 
     public class AddProductFormModel
     {
         [Required]
-        [StringLength(ProductBrandMaxLength, MinimumLength = ProductBrandMinLength)]
+        [StringLength(BrandMaxLength, MinimumLength = BrandMinLength)]
         public string Brand { get; init; }
 
-        [Range(ProductPriceMinValue,ProductPriceMaxValue)]
+        [Range(PriceMinValue,PriceMaxValue)]
         public decimal Price { get; init; }
 
         [Required]
-        [StringLength(ProductDescriptionMaxLength, MinimumLength = ProductDescriptionMinLength)]
+        [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength)]
         public string Description { get; init; }
 
         [Url]

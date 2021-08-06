@@ -2,6 +2,7 @@ namespace FitnessShopSystem
 {
     using FitnessShopSystem.Data;
     using FitnessShopSystem.Infrastructure;
+    using FitnessShopSystem.Services.Products;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
@@ -37,8 +38,11 @@ namespace FitnessShopSystem
 
             services
                 .AddControllersWithViews();
-        }
 
+            services
+                .AddTransient<IProductService, ProductService>();
+                
+        }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

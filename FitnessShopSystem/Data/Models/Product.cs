@@ -2,20 +2,20 @@
 {
     using System.ComponentModel.DataAnnotations;
 
-    using static DataConstants;
+    using static DataConstants.Product;
 
     public class Product
     {
         public int Id { get; init; }
 
         [Required]
-        [MaxLength(ProductBrandMaxLength)]
+        [MaxLength(BrandMaxLength)]
         public string Brand { get; set; }
 
         public decimal Price { get; set; }
 
         [Required]
-        [MaxLength(ProductDescriptionMaxLength)]
+        [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; }
 
         public string ImageUrl { get; set; }
@@ -23,6 +23,10 @@
         public int CategoryId { get; set; }
 
         public Category Category { get; init; }
+
+        public int ManufacturerId { get; init; }
+
+        public Manufacturer Manufacturer { get; init; }
 
     }
 }
