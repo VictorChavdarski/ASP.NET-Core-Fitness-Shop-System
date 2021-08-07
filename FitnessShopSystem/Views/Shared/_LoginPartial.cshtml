@@ -6,7 +6,7 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Sellers" asp-action="Create">Become Seller</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Manufactures" asp-action="Create">Become manufacturer</a>
         </li>
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"></a>
@@ -23,13 +23,20 @@
         <div>
             <div class="btn-group">
                 <button type="button" class="btn btn-secondary dropdown-toggle table-hover" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Right-aligned menu
+                    Account
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <button class="dropdown-item" type="button">Action</button>
-                    <button class="dropdown-item" type="button">Another action</button>
-                    <button class="dropdown-item" type="button">Something else here</button>
+                    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
                 </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-secondary dropdown-toggle table-hover" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   Shopping Cart
+                </button>
             </div>
         </div>
     }

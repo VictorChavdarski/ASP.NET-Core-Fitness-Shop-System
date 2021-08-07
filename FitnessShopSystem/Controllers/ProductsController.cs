@@ -6,6 +6,8 @@
     using FitnessShopSystem.Data;
     using FitnessShopSystem.Models.Products;
     using FitnessShopSystem.Data.Models;
+    using Microsoft.AspNetCore.Authorization;
+    using FitnessShopSystem.Infrastructure;
 
     public class ProductsController : Controller
     {
@@ -14,7 +16,7 @@
         public ProductsController(FitnessShopDbContext data)
             => this.data = data;
 
-        public IActionResult All([FromQuery]ProductSearchQueryModel query)
+        public IActionResult All([FromQuery] ProductSearchQueryModel query)
         {
             var productsQuery = this.data.Products.AsQueryable();
 
@@ -63,14 +65,42 @@
 
             return View(query);
         }
-        public IActionResult Add() => View(new AddProductFormModel
+
+        [Authorize]
+        public IActionResult Add()
         {
-            Categories = this.GetProductCategories()
-        });
+            if (!this.UserIsManufacturer())
+            {
+                return RedirectToAction(nameof(ManufacturesController.Create), "Manufactures");
+            }
+
+            return View(new AddProductFormModel
+            {
+                Categories = this.GetProductCategories()
+            });
+        }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Add(AddProductFormModel product)
         {
+            if (!this.UserIsManufacturer())
+            {
+                return RedirectToAction(nameof(ManufacturesController.Create), "Manufactures");
+            }
+
+            var manufacturerId = this.data
+                .Manufacturers
+                .Where(m => m.UserId == this.User.GetId())
+                .Select(m => m.Id)
+                .FirstOrDefault();
+
+            if (manufacturerId == 0)
+            {
+                return RedirectToAction(nameof(ManufacturesController.Create), "Manufactures");
+            }
+
+
             if (!this.data.Categories.Any(c => c.Id == product.CategoryId))
             {
                 this.ModelState.AddModelError(nameof(product.CategoryId), "Category does not exist!");
@@ -89,7 +119,8 @@
                 Price = product.Price,
                 Description = product.Description,
                 ImageUrl = product.ImageUrl,
-                CategoryId = product.CategoryId
+                CategoryId = product.CategoryId,
+                ManufacturerId = manufacturerId
             };
 
             this.data.Products.Add(productData);
@@ -97,6 +128,11 @@
 
             return RedirectToAction(nameof(All));
         }
+
+        private bool UserIsManufacturer()
+            => this.data
+                .Manufacturers
+                .Any(m => m.UserId == this.User.GetId());
 
         private IEnumerable<ProductCategoryViewModel> GetProductCategories()
         => this.data
