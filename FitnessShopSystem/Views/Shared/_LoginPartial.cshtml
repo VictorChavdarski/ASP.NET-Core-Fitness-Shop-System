@@ -1,13 +1,30 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using FitnessShopSystem.Services.Manufacturers
+
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+@inject IManufacturerService Manufacturers
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Manufactures" asp-action="Create">Become manufacturer</a>
-        </li>
+        var userId = User.GetId();
+        var userIsManufacturer = Manufacturers.IsManufacturer(userId);
+
+
+        @if (userIsManufacturer)
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Mine">My Products</a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Manufactures" asp-action="Create">Become manufacturer</a>
+            </li>
+        }
+
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"></a>
         </li>
@@ -35,7 +52,7 @@
         <div>
             <div class="btn-group">
                 <button type="button" class="btn btn-secondary dropdown-toggle table-hover" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                   Shopping Cart
+                    Shopping Cart
                 </button>
             </div>
         </div>

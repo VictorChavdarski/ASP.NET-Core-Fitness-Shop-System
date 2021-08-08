@@ -8,6 +8,8 @@
 
         public int TotalUsers { get; set; }
 
+        public string SearchTerm { get; set; }
+
         public List<ProductIndexViewModel> Products { get; set; }
     }
 }

@@ -5,16 +5,25 @@
     using Microsoft.AspNetCore.Mvc;
     using FitnessShopSystem.Data;
     using FitnessShopSystem.Models.Products;
-    using FitnessShopSystem.Data.Models;
     using Microsoft.AspNetCore.Authorization;
     using FitnessShopSystem.Infrastructure;
+    using FitnessShopSystem.Services.Products;
+    using FitnessShopSystem.Services.Manufacturers;
 
     public class ProductsController : Controller
     {
         private readonly FitnessShopDbContext data;
-
-        public ProductsController(FitnessShopDbContext data)
-            => this.data = data;
+        private readonly IProductService products;
+        private readonly IManufacturerService manufacturers;
+        
+        public ProductsController(
+            FitnessShopDbContext data,
+            IProductService products,
+            IManufacturerService manufacturers)
+        {
+            this.products = products;
+            this.manufacturers = manufacturers;
+        }
 
         public IActionResult All([FromQuery] ProductSearchQueryModel query)
         {
@@ -69,31 +78,27 @@
         [Authorize]
         public IActionResult Add()
         {
-            if (!this.UserIsManufacturer())
+            if (!this.manufacturers.IsManufacturer(this.User.GetId()))
             {
                 return RedirectToAction(nameof(ManufacturesController.Create), "Manufactures");
             }
 
-            return View(new AddProductFormModel
+            return View(new ProductFormModel
             {
-                Categories = this.GetProductCategories()
+                Categories = this.products.AllProductCategories()
             });
         }
 
         [HttpPost]
         [Authorize]
-        public IActionResult Add(AddProductFormModel product)
+        public IActionResult Add(ProductFormModel product)
         {
-            if (!this.UserIsManufacturer())
+            if (!this.manufacturers.IsManufacturer(this.User.GetId()))
             {
                 return RedirectToAction(nameof(ManufacturesController.Create), "Manufactures");
             }
 
-            var manufacturerId = this.data
-                .Manufacturers
-                .Where(m => m.UserId == this.User.GetId())
-                .Select(m => m.Id)
-                .FirstOrDefault();
+            var manufacturerId = this.manufacturers.GetId(this.User.GetId());
 
             if (manufacturerId == 0)
             {
@@ -101,47 +106,107 @@
             }
 
 
-            if (!this.data.Categories.Any(c => c.Id == product.CategoryId))
+            if (!this.products.CategoryExist(product.CategoryId))
             {
                 this.ModelState.AddModelError(nameof(product.CategoryId), "Category does not exist!");
             }
 
             if (!ModelState.IsValid)
             {
-                product.Categories = this.GetProductCategories();
+                product.Categories = this.products.AllProductCategories();
 
                 return View(product);
             }
 
-            var productData = new Product
+            this.products.Create(
+               product.Brand,
+               product.Price,
+               product.Description,
+               product.ImageUrl,
+               product.CategoryId,
+               manufacturerId);
+
+            return RedirectToAction(nameof(All));
+        }
+
+        [Authorize]
+        public IActionResult Mine()
+        {
+            var myProducts = this.products.ByUser(this.User.GetId());
+
+            return View(myProducts);
+        }
+
+        [Authorize]
+        public IActionResult Edit(int id)
+        {
+            var userId = this.User.GetId();
+
+            if (!this.manufacturers.IsManufacturer(userId))
+            {
+                return RedirectToAction(nameof(ManufacturesController.Create), "Manufactures");
+            }
+
+            var product = this.products.Details(id);
+
+            if (product.UserId != userId)
+            {
+                return Unauthorized();
+            }
+
+            return View(new ProductFormModel
             {
                 Brand = product.Brand,
                 Price = product.Price,
                 Description = product.Description,
                 ImageUrl = product.ImageUrl,
                 CategoryId = product.CategoryId,
-                ManufacturerId = manufacturerId
-            };
+                Categories = this.products.AllProductCategories()
+            });
+        }
 
-            this.data.Products.Add(productData);
-            this.data.SaveChanges();
+        [Authorize]
+        [HttpPost]
+        public IActionResult Edit(int id, ProductFormModel product )
+        {
+            if (!this.manufacturers.IsManufacturer(this.User.GetId()))
+            {
+                return RedirectToAction(nameof(ManufacturesController.Create), "Manufactures");
+            }
+
+            var manufacturerId = this.manufacturers.GetId(this.User.GetId());
+
+            if (manufacturerId == 0)
+            {
+                return RedirectToAction(nameof(ManufacturesController.Create), "Manufactures");
+            }
+
+            if (!this.products.CategoryExist(product.CategoryId))
+            {
+                this.ModelState.AddModelError(nameof(product.CategoryId), "Category does not exist!");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                product.Categories = this.products.AllProductCategories();
+                return View(product);
+            }
+
+           var editedProduct = this.products.Edit(
+              id,
+              product.Brand,
+              product.Price,
+              product.Description,
+              product.ImageUrl,
+              product.CategoryId,
+              manufacturerId);
+
+            if (!editedProduct)
+            {
+                return BadRequest();
+            }
 
             return RedirectToAction(nameof(All));
         }
-
-        private bool UserIsManufacturer()
-            => this.data
-                .Manufacturers
-                .Any(m => m.UserId == this.User.GetId());
-
-        private IEnumerable<ProductCategoryViewModel> GetProductCategories()
-        => this.data
-            .Categories
-            .Select(p => new ProductCategoryViewModel
-            {
-                Id = p.Id,
-                Name = p.Name
-            })
-            .ToList();
     }
 }

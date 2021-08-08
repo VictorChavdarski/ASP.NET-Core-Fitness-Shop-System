@@ -1,6 +1,6 @@
-﻿namespace FitnessShopSystem.Models.Products
+﻿namespace FitnessShopSystem.Services.Products
 {
-    public class ProductCategoryViewModel
+    public class ProductCategoryServiceModel
     {
         public int Id { get; set; }
 

@@ -1,11 +1,12 @@
 ﻿namespace FitnessShopSystem.Models.Products
 {
+    using FitnessShopSystem.Services.Products;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using static Data.DataConstants.Product;
 
-    public class AddProductFormModel
+    public class ProductFormModel
     {
         [Required]
         [StringLength(BrandMaxLength, MinimumLength = BrandMinLength)]
@@ -26,6 +27,6 @@
         [Display(Name = "Category")]
         public int CategoryId { get; init; }
 
-        public IEnumerable<ProductCategoryViewModel> Categories { get; set; }
+        public IEnumerable<ProductCategoryServiceModel> Categories { get; set; }
     }
 }

@@ -25,6 +25,14 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="All">All</a>
                         </li>
                     </ul>
+                    <form method="get">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Search">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </form>
                     <partial name="_LoginPartial" />
                 </div>
             </div>

@@ -2,10 +2,12 @@ namespace FitnessShopSystem
 {
     using FitnessShopSystem.Data;
     using FitnessShopSystem.Infrastructure;
+    using FitnessShopSystem.Services.Manufacturers;
     using FitnessShopSystem.Services.Products;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -36,12 +38,17 @@ namespace FitnessShopSystem
                 })
                 .AddEntityFrameworkStores<FitnessShopDbContext>();
 
-            services
-                .AddControllersWithViews();
+            services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+            });
 
             services
                 .AddTransient<IProductService, ProductService>();
-                
+
+            services
+                .AddTransient<IManufacturerService, ManufacturerService>();
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -71,7 +78,7 @@ namespace FitnessShopSystem
                 endpoints.MapRazorPages();
             });
 
-           
+
         }
     }
 }
