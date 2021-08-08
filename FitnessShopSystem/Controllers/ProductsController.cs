@@ -21,6 +21,7 @@
             IProductService products,
             IManufacturerService manufacturers)
         {
+            this.data = data;
             this.products = products;
             this.manufacturers = manufacturers;
         }
