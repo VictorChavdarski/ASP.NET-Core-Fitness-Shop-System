@@ -23,7 +23,6 @@
             <img class="d-block w-100" src="@product.ImageUrl" alt="@product.Brand @product.Price">
             <div class="carousel-caption d-none d-md-block">
                 <h5>@product.Brand @product.Price</h5>
-                <p class="text-black-50">@product.Description</p>
             </div>
         </div>
        }
@@ -36,4 +35,24 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
     </a>
+</div>
+<br />
+<div>
+    <h1 class="text-center">Most popular products</h1>
+    <div class="row">
+        @foreach (var product in Model.Products)
+        {
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <img class="card-img-top" src="@product.ImageUrl" alt="Card image cap">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-center">@product.Brand @product.Price</h5>
+                        <a asp-controller="Products" asp-action="Buy" asp-route-id="@product.Id" class="btn btn-primary">Buy</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <a asp-controller="Products" asp-action="All" class="btn btn-primary">Learn More</a>
 </div>

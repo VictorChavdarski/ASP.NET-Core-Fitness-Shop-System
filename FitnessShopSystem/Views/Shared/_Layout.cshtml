@@ -18,21 +18,16 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+                        @if (this.User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Add">Add Product</a>
+                            </li>
+                        }
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Add">Add Product</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="All">All</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="All">Supplements</a>
                         </li>
                     </ul>
-                    <form method="get">
-                        <div class="input-group">
-                            <input class="form-control" placeholder="Search">
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-primary">Search</button>
-                            </div>
-                        </div>
-                    </form>
                     <partial name="_LoginPartial" />
                 </div>
             </div>
