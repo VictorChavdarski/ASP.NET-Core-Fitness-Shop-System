@@ -9,21 +9,24 @@
     using FitnessShopSystem.Infrastructure;
     using FitnessShopSystem.Services.Products;
     using FitnessShopSystem.Services.Manufacturers;
+    using AutoMapper;
 
     public class ProductsController : Controller
     {
         private readonly FitnessShopDbContext data;
         private readonly IProductService products;
         private readonly IManufacturerService manufacturers;
-        
+        private readonly IMapper mapper;
+
         public ProductsController(
             FitnessShopDbContext data,
             IProductService products,
-            IManufacturerService manufacturers)
+            IManufacturerService manufacturers, IMapper mapper)
         {
             this.data = data;
             this.products = products;
             this.manufacturers = manufacturers;
+            this.mapper = mapper;
         }
 
         public IActionResult All([FromQuery] ProductSearchQueryModel query)
@@ -155,15 +158,11 @@
                 return Unauthorized();
             }
 
-            return View(new ProductFormModel
-            {
-                Brand = product.Brand,
-                Price = product.Price,
-                Description = product.Description,
-                ImageUrl = product.ImageUrl,
-                CategoryId = product.CategoryId,
-                Categories = this.products.AllProductCategories()
-            });
+            var productForm = this.mapper.Map<ProductFormModel>(product);
+
+            productForm.Categories = this.products.AllProductCategories();
+
+            return View(productForm);
         }
 
         [Authorize]

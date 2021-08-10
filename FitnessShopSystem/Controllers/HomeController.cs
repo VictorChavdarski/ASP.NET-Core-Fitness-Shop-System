@@ -1,19 +1,24 @@
 ﻿namespace FitnessShopSystem.Controllers
 {
     using System.Linq;
-    using System.Diagnostics;
     using Microsoft.AspNetCore.Mvc;
     using FitnessShopSystem.Data;
-    using FitnessShopSystem.Models;
-    using FitnessShopSystem.Models.Products;
     using FitnessShopSystem.Models.Home;
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
 
     public class HomeController : Controller
     {
         private readonly FitnessShopDbContext data;
+        private readonly IMapper mapper;
 
-        public HomeController(FitnessShopDbContext data)
-            => this.data = data;
+        public HomeController(FitnessShopDbContext data,
+            IMapper mapper)
+        {
+            this.data = data;
+            this.mapper = mapper;
+        }
+
 
         public IActionResult Index()
         {
@@ -22,13 +27,7 @@
             var products = this.data
                 .Products
                 .OrderByDescending(p => p.Id)
-                .Select(p => new ProductIndexViewModel
-                {
-                    Brand = p.Brand,
-                    Price = p.Price,
-                    ImageUrl = p.ImageUrl,
-                    Description = p.Description
-                })
+                .ProjectTo<ProductIndexViewModel>(this.mapper.ConfigurationProvider)
                 .Take(4)
                 .ToList();
 

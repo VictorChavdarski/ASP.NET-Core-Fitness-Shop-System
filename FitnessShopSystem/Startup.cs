@@ -38,6 +38,8 @@ namespace FitnessShopSystem
                 })
                 .AddEntityFrameworkStores<FitnessShopDbContext>();
 
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddControllersWithViews(options =>
             {
                 options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();

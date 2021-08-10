@@ -5,14 +5,20 @@
     using FitnessShopSystem.Data;
     using FitnessShopSystem.Data.Models;
     using FitnessShopSystem.Models.Products;
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
 
     public class ProductService : IProductService
     {
         private readonly FitnessShopDbContext data;
+        private readonly IMapper mapper;
 
-        public ProductService(FitnessShopDbContext data)
-            => this.data = data;
-
+        public ProductService(FitnessShopDbContext data,
+            IMapper mapper)
+        {
+            this.data = data;
+            this.mapper = mapper;
+        }
         public ProductQueryServiceModel All(string brand, string searchTerm, ProductSorting sorting, int currentPage)
         {
             var productsQuery = this.data.Products.AsQueryable();
@@ -54,16 +60,7 @@
             => this.data
                 .Products
                 .Where(p => p.Id == id)
-                .Select(p => new ProductDetailsServiceModel
-                {
-                    Brand = p.Brand,
-                    Price = p.Price,
-                    Description = p.Description,
-                    ImageUrl = p.ImageUrl,
-                    ManufacturerId = p.ManufacturerId,
-                    ManufacturerName = p.Manufacturer.Name,
-                    UserId = p.Manufacturer.UserId
-                })
+                .ProjectTo<ProductDetailsServiceModel>(this.mapper.ConfigurationProvider)
                 .FirstOrDefault();
 
         public int Create(string brand, decimal price, string description, string imageUrl, int categoryId, int manufacturerId)
