@@ -8,9 +8,6 @@
     public class HomeControllerTest
     {
         [Fact]
-        public vodi 
-
-        [Fact]
         public void ErrorShouldReturnView()
         {
             var homeController = new HomeController(null, MapperMock.Instance);
