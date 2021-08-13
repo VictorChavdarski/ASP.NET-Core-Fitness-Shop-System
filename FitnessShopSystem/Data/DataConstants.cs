@@ -2,6 +2,30 @@
 {
     public class DataConstants
     {
+        public class TrainingProgram
+        {
+            public const int NameMinLength = 5;
+            public const int NameMaxLength = 50;
+
+            public const int DescriptionMinLength = 20;
+            public const int DescriptionMaxLength = 1000;
+        }
+
+        public class Instructor
+        {
+            public const int FirstNameMinLength = 3;
+            public const int FirstNameMaxLength = 30;
+
+            public const int LastNameMinLength = 3;
+            public const int LastNameMaxLength = 30;
+
+            public const int AgeMinValue = 18;
+            public const int AgeMaxValue = 60;
+
+            public const int PhoneNumberMinLength = 10;
+            public const int PhoneNumberMaxLength = 12;
+        }
+
         public class User
         {
             public const int PasswordMinLength = 8;

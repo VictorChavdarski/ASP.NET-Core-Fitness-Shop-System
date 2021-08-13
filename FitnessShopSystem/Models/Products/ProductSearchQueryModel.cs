@@ -20,6 +20,6 @@
 
         public IEnumerable<string> Brands { get; set; }
 
-        public IEnumerable<ProductListingViewModel> Products { get; set; }
+        public IEnumerable<ProductEditViewModel> Products { get; set; }
     }
 }

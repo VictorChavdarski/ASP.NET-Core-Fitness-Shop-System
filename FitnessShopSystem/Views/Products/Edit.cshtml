@@ -1,6 +1,4 @@
-﻿<h1>Hello from Edit</h1>
-
-@*@model ProductFormModel
+﻿@model ProductEditViewModel
 
 @{
     ViewData["Title"] = "Edit Product";
@@ -42,17 +40,8 @@
                     <input asp-for="ImageUrl" class="form-control">
                     <span asp-validation-for="ImageUrl" class="small text-danger"> </span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="CategoryId">Category</label>
-                    <select asp-for="CategoryId" class="form-control">
-                        @foreach (var category in Model.Categories)
-                        {
-                            <option value="@category.Id">@category.Name</option>
-                        }
-                    </select>
-                </div>
                 <input class="btn btn-primary" type="submit" value="Save" />
             </form>
         </div>
     </div>
-</div>*@
+</div>

@@ -4,6 +4,8 @@ namespace FitnessShopSystem
     using FitnessShopSystem.Infrastructure;
     using FitnessShopSystem.Services.Manufacturers;
     using FitnessShopSystem.Services.Products;
+    using FitnessShopSystem.Services.Instructors;
+    using FitnessShopSystem.Services.Programs;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
@@ -50,6 +52,12 @@ namespace FitnessShopSystem
 
             services
                 .AddTransient<IManufacturerService, ManufacturerService>();
+
+            services
+                .AddTransient<IInstructorService, InstructorService>();
+
+            services
+                .AddTransient<IProgramService, ProgramService>();
 
         }
 

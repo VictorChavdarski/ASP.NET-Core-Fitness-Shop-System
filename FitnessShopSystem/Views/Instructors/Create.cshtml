@@ -1,0 +1,43 @@
+﻿@model FitnessShopSystem.Models.Instructors.BecomeInstructorFormModel
+
+@{
+    ViewData["Title"] = "Become Instructor";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 offset-md-2 col-md-7">
+            <h2 class="heading-margin text-center">Become Instructor</h2>
+
+            <form method="post">
+                <div class="form-group">
+                    <label asp-for="FirstName">First Name</label>
+                    <input asp-for="FirstName" class="form-control">
+                    <span asp-validation-for="FirstName" class="small text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LastName">Last Name</label>
+                    <input asp-for="LastName" class="form-control">
+                    <span asp-validation-for="LastName" class="small text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Age">Age</label>
+                    <input asp-for="Age" class="form-control">
+                    <span asp-validation-for="Age" class="small text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PhoneNumber">Phone Number</label>
+                    <input asp-for="PhoneNumber" class="form-control">
+                    <span asp-validation-for="PhoneNumber" class="small text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email">Email</label>
+                    <input asp-for="Email" class="form-control">
+                    <span asp-validation-for="Email" class="small text-danger"></span>
+                </div>
+
+                <input class="btn btn-primary" type="submit" value="Save" />
+            </form>
+        </div>
+    </div>
+</div>

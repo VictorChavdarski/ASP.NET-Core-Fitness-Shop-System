@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessShopSystem.Data.Migrations
 {
     [DbContext(typeof(FitnessShopDbContext))]
-    [Migration("20210812142604_InitialCreate")]
+    [Migration("20210813142056_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,6 +36,52 @@ namespace FitnessShopSystem.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("FitnessShopSystem.Data.Models.Instructor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(12)
+                        .HasColumnType("nvarchar(12)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserId1")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
+
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("Instructors");
                 });
 
             modelBuilder.Entity("FitnessShopSystem.Data.Models.Manufacturer", b =>
@@ -118,6 +164,42 @@ namespace FitnessShopSystem.Data.Migrations
                     b.HasIndex("ManufacturerId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("FitnessShopSystem.Data.Models.TrainingProgram", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<int>("InstructorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Level")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("InstructorId");
+
+                    b.ToTable("Programs");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -320,6 +402,20 @@ namespace FitnessShopSystem.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("FitnessShopSystem.Data.Models.Instructor", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithOne()
+                        .HasForeignKey("FitnessShopSystem.Data.Models.Instructor", "UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId1");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("FitnessShopSystem.Data.Models.Manufacturer", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
@@ -351,6 +447,25 @@ namespace FitnessShopSystem.Data.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("Manufacturer");
+                });
+
+            modelBuilder.Entity("FitnessShopSystem.Data.Models.TrainingProgram", b =>
+                {
+                    b.HasOne("FitnessShopSystem.Data.Models.Category", "Category")
+                        .WithMany("Programs")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("FitnessShopSystem.Data.Models.Instructor", "Instructor")
+                        .WithMany("Programs")
+                        .HasForeignKey("InstructorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Instructor");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -407,6 +522,13 @@ namespace FitnessShopSystem.Data.Migrations
             modelBuilder.Entity("FitnessShopSystem.Data.Models.Category", b =>
                 {
                     b.Navigation("Products");
+
+                    b.Navigation("Programs");
+                });
+
+            modelBuilder.Entity("FitnessShopSystem.Data.Models.Instructor", b =>
+                {
+                    b.Navigation("Programs");
                 });
 
             modelBuilder.Entity("FitnessShopSystem.Data.Models.Manufacturer", b =>

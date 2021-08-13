@@ -33,7 +33,9 @@
             {
                 new Category {Name = "Supplements" },
                 new Category {Name = "Clothing" },
-                new Category {Name = "Shakers" }
+                new Category {Name = "Beginner" },
+                new Category {Name = "Intermediate" },
+                new Category {Name = "Advanced" }
             });
 
             data.SaveChanges();

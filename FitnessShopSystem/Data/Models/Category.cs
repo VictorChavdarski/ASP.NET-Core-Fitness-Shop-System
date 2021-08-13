@@ -10,6 +10,7 @@
         public Category()
         {
             this.Products = new HashSet<Product>();
+            this.Programs = new HashSet<TrainingProgram>();
         }
 
         public int Id { get; set; }
@@ -19,5 +20,6 @@
         public string Name { get; set; }
 
         public IEnumerable<Product> Products { get; set; }
+        public IEnumerable<TrainingProgram> Programs { get; set; }
     }
 }

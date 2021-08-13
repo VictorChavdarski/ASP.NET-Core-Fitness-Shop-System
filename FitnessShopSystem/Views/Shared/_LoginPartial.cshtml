@@ -1,15 +1,18 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using FitnessShopSystem.Services.Manufacturers
+@using FitnessShopSystem.Services.Instructors
 
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 @inject IManufacturerService Manufacturers
+@inject IInstructorService Instructors
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
         var userId = User.GetId();
         var userIsManufacturer = Manufacturers.IsManufacturer(userId);
+        var userIsInstructor = Instructors.IsInstructor(userId);
 
 
         @if (userIsManufacturer)
@@ -25,9 +28,18 @@
             </li>
         }
 
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"></a>
-        </li>
+        @if (userIsInstructor)
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Programs" asp-action="Mine">My Programs</a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Instructors" asp-action="Create">Become Instructor</a>
+            </li>
+        }
 
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
@@ -46,7 +58,7 @@
                 <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
             </div>
         </div>
-       
+
         <div class="btn-group">
             <button type="button" class="btn btn-secondary dropdown-toggle table-hover" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Shopping Cart

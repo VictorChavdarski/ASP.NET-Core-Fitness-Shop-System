@@ -56,24 +56,20 @@
             };
         }
 
-        public ProductDetailsServiceModel Details(int id)
+        public ProductEditViewModel Details(int id)
             => this.data
                 .Products
                 .Where(p => p.Id == id)
-                .Select(p => new ProductDetailsServiceModel
+                .Select(p => new ProductEditViewModel
                 {
                     Id = p.Id,
                     Name = p.Name,
                     Brand = p.Brand,
                     Price = p.Price,
-                    Flavour = p.Flavour,
                     Description = p.Description,
+                    Flavour = p.Flavour,
                     ImageUrl = p.ImageUrl,
-                    ManufacturerId = p.ManufacturerId,
-                    ManufacturerName = p.Manufacturer.Name,
                     CategoryId = p.CategoryId,
-                    CategoryName = p.Category.Name,
-                    UserId = p.Manufacturer.UserId
                 })
                 .FirstOrDefault();
 
@@ -133,10 +129,13 @@
             => productQuery
                 .Select(p => new ProductServiceModel
                 {
+                    Name = p.Name,
                     Brand = p.Brand,
                     Price = p.Price,
-                    ImageUrl = p.ImageUrl,
                     Description = p.Description,
+                    Flavour = p.Flavour,
+                    ImageUrl = p.ImageUrl,
+                    CategoryId = p.CategoryId
                 })
                 .ToList();
 

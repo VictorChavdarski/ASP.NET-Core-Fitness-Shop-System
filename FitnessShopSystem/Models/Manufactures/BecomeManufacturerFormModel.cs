@@ -1,6 +1,7 @@
 ﻿namespace FitnessShopSystem.Models.Manufactures
 {
     using System.ComponentModel.DataAnnotations;
+
     using static Data.DataConstants.Manufacturer;
 
     public class BecomeManufacturerFormModel

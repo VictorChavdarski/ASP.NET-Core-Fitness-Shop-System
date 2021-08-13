@@ -1,5 +1,6 @@
 ﻿namespace FitnessShopSystem.Services.Products
 {
+    using FitnessShopSystem.Models.Products;
     using System.Collections.Generic;
 
     public class ProductQueryServiceModel

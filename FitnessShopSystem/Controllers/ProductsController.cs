@@ -76,7 +76,7 @@
             var products = productsQuery
                 .Skip((query.CurrentPage - 1) * ProductSearchQueryModel.ProductsPerPage)
                 .Take(ProductSearchQueryModel.ProductsPerPage)
-                .Select(p => new ProductListingViewModel
+                .Select(p => new ProductEditViewModel
                 {
                     Brand = p.Brand,
                     Price = p.Price,
@@ -167,18 +167,7 @@
                 return RedirectToAction(nameof(ManufacturesController.Create), "Manufactures");
             }
 
-            var product = this.data.Products.Where(p => p.Id == id)
-                .Select(p => new ProductEditViewModel
-                {
-                   Name = p.Name,
-                   Brand = p.Brand,
-                   Price = p.Price,
-                   Description = p.Description,
-                   Flavour = p.Flavour,
-                   ImageUrl = p.ImageUrl,
-                   CategoryId = p.CategoryId
-                })
-                .FirstOrDefault();
+            var product = this.products.Details(id);
 
             return View(product);
         }
