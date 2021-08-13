@@ -9,6 +9,10 @@
         public int Id { get; init; }
 
         [Required]
+        [MaxLength(NameMaxLength)]
+        public string Name { get; set; }
+
+        [Required]
         [MaxLength(BrandMaxLength)]
         public string Brand { get; set; }
 
@@ -17,6 +21,10 @@
         [Required]
         [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; }
+
+        [Required]
+        [MaxLength(FlavourMaxLength)]
+        public string Flavour { get; set; }
 
         public string ImageUrl { get; set; }
 

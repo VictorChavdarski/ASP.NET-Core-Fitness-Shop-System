@@ -13,21 +13,25 @@
         ProductDetailsServiceModel Details(int id);
 
         int Create(
+            string name,
             string brand,
             decimal price,
             string description,
+            string flavour,
             string imageUrl,
             int categoryId,
             int manufacturerId);
 
         bool Edit(
-           int id,
-           string brand,
-           decimal price,
-           string description,
-           string imageUrl,
-           int categoryId,
-           int manufacturerId);
+            int id,
+            string name,
+            string brand,
+            decimal price,
+            string description,
+            string flavour,
+            string imageUrl,
+            int categoryId,
+            int manufacturerId);
 
         public IEnumerable<ProductServiceModel> ByUser(string userId);
 

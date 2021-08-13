@@ -21,12 +21,32 @@
         public ProductsController(
             FitnessShopDbContext data,
             IProductService products,
-            IManufacturerService manufacturers, IMapper mapper)
+            IManufacturerService manufacturers,
+            IMapper mapper)
         {
             this.data = data;
             this.products = products;
             this.manufacturers = manufacturers;
             this.mapper = mapper;
+        }
+
+        [Authorize]
+        public IActionResult Buy(int id)
+        {
+            var product = this.data.Products.Where(p => p.Id == id)
+                .Select(p => new ProductBuyViewModel
+                {
+                    Name = p.Name,
+                    Brand = p.Brand,
+                    Price = p.Price,
+                    Description = p.Description,
+                    Flavour = p.Flavour,
+                    ImageUrl = p.ImageUrl,
+                    CategoryName = p.Category.Name
+                })
+                .FirstOrDefault();
+
+            return View(product);
         }
 
         public IActionResult All([FromQuery] ProductSearchQueryModel query)
@@ -97,18 +117,12 @@
         [Authorize]
         public IActionResult Add(ProductFormModel product)
         {
-            if (!this.manufacturers.IsManufacturer(this.User.GetId()))
-            {
-                return RedirectToAction(nameof(ManufacturesController.Create), "Manufactures");
-            }
-
             var manufacturerId = this.manufacturers.GetId(this.User.GetId());
 
             if (manufacturerId == 0)
             {
                 return RedirectToAction(nameof(ManufacturesController.Create), "Manufactures");
             }
-
 
             if (!this.products.CategoryExist(product.CategoryId))
             {
@@ -123,9 +137,11 @@
             }
 
             this.products.Create(
+               product.Name,
                product.Brand,
                product.Price,
                product.Description,
+               product.Flavour,
                product.ImageUrl,
                product.CategoryId,
                manufacturerId);
@@ -151,23 +167,25 @@
                 return RedirectToAction(nameof(ManufacturesController.Create), "Manufactures");
             }
 
-            var product = this.products.Details(id);
+            var product = this.data.Products.Where(p => p.Id == id)
+                .Select(p => new ProductEditViewModel
+                {
+                   Name = p.Name,
+                   Brand = p.Brand,
+                   Price = p.Price,
+                   Description = p.Description,
+                   Flavour = p.Flavour,
+                   ImageUrl = p.ImageUrl,
+                   CategoryId = p.CategoryId
+                })
+                .FirstOrDefault();
 
-            if (product.UserId != userId)
-            {
-                return Unauthorized();
-            }
-
-            var productForm = this.mapper.Map<ProductFormModel>(product);
-
-            productForm.Categories = this.products.AllProductCategories();
-
-            return View(productForm);
+            return View(product);
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult Edit(int id, ProductFormModel product )
+        public IActionResult Edit(int id, ProductFormModel product)
         {
             if (!this.manufacturers.IsManufacturer(this.User.GetId()))
             {
@@ -192,14 +210,16 @@
                 return View(product);
             }
 
-           var editedProduct = this.products.Edit(
-              id,
-              product.Brand,
-              product.Price,
-              product.Description,
-              product.ImageUrl,
-              product.CategoryId,
-              manufacturerId);
+            var editedProduct = this.products.Edit(
+               id,
+               product.Name,
+               product.Brand,
+               product.Price,
+               product.Description,
+               product.Flavour,
+               product.ImageUrl,
+               product.CategoryId,
+               manufacturerId);
 
             if (!editedProduct)
             {

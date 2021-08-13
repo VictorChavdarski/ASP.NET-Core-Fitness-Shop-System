@@ -60,16 +60,32 @@
             => this.data
                 .Products
                 .Where(p => p.Id == id)
-                .ProjectTo<ProductDetailsServiceModel>(this.mapper.ConfigurationProvider)
+                .Select(p => new ProductDetailsServiceModel
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Brand = p.Brand,
+                    Price = p.Price,
+                    Flavour = p.Flavour,
+                    Description = p.Description,
+                    ImageUrl = p.ImageUrl,
+                    ManufacturerId = p.ManufacturerId,
+                    ManufacturerName = p.Manufacturer.Name,
+                    CategoryId = p.CategoryId,
+                    CategoryName = p.Category.Name,
+                    UserId = p.Manufacturer.UserId
+                })
                 .FirstOrDefault();
 
-        public int Create(string brand, decimal price, string description, string imageUrl, int categoryId, int manufacturerId)
+        public int Create(string name, string brand, decimal price, string description, string flavour, string imageUrl, int categoryId, int manufacturerId)
         {
             var productData = new Product
             {
+                Name = name,
                 Brand = brand,
                 Price = price,
                 Description = description,
+                Flavour = flavour,
                 ImageUrl = imageUrl,
                 CategoryId = categoryId,
                 ManufacturerId = manufacturerId
@@ -81,18 +97,20 @@
             return productData.Id;
         }
 
-        public bool Edit(int id, string brand, decimal price, string description, string imageUrl, int categoryId, int manufacturerId)
+        public bool Edit(int id,string name, string brand, decimal price, string description, string flavour, string imageUrl, int categoryId, int manufacturerId)
         {
             var product = this.data.Products.Find(id);
 
-            if (product.ManufacturerId != manufacturerId)
+            if (product == null)
             {
                 return false;
             }
 
+            product.Name = name;
             product.Brand = brand;
             product.Price = price;
             product.Description = description;
+            product.Flavour = flavour;
             product.ImageUrl = imageUrl;
             product.CategoryId = categoryId;
 
@@ -131,6 +149,5 @@
                     Name = p.Name
                 })
                 .ToList();
-
     }
 }

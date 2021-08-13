@@ -1,8 +1,8 @@
-﻿namespace FitnessShopSystem.Services.Products
+﻿namespace FitnessShopSystem.Models.Products
 {
-    public class ProductServiceModel
+    public class ProductBuyViewModel
     {
-        public int Id { get; set; }
+        public string Name { get; set; }
 
         public string Brand { get; set; }
 
@@ -10,8 +10,11 @@
 
         public string Description { get; set; }
 
+        public string Flavour { get; set; }
+
         public string ImageUrl { get; set; }
 
         public string CategoryName { get; set; }
+
     }
 }

@@ -10,7 +10,41 @@
     <h2 class="text-center">You do not have any products!</h2>
 }
 
-<div class="row">
+<table class="table table-bordered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                Image
+            </th>
+            <th>
+                Id
+            </th>
+            <th>
+                Brand
+            </th>
+            <th>
+                Price
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+        <tr>
+            <td width="30%"><img width="100" class="mr-3" src="@product.ImageUrl"/></td>
+            <td width="30%">@product.Id</td>
+            <td width="30%">@product.Brand</td>
+            <td width="30%">@product.Price</td>
+            <td><a asp-controller="Products" asp-action="Edit"  asp-route-id="@product.Id" class="btn btn-warning">Edit</a></td>
+            <td><a asp-controller="Products" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger">Delete</a></td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+
+@*<div class="row">
     @foreach (var product in Model)
     {
         <div class="col-md-4">
@@ -28,4 +62,4 @@
             </div>
         </div>
     }
-</div>
+</div>*@

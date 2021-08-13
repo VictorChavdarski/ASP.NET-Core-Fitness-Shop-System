@@ -2,12 +2,16 @@
 {
     public class ProductDetailsServiceModel : ProductServiceModel
     {
-        public int ManufacturerId { get; init; }
+        public string Name { get; set; }
 
-        public string ManufacturerName { get; init; }
+        public string Flavour { get; set; }
 
-        public string UserId { get; init; }
+        public int ManufacturerId { get; set; }
 
-        public int CategoryId { get; init; }
+        public string ManufacturerName { get; set; }
+
+        public int CategoryId { get; set; }
+
+        public string UserId { get; set; }
     }
 }

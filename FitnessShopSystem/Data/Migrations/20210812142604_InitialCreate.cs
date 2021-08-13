@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace FitnessShopSystem.Migrations
+namespace FitnessShopSystem.Data.Migrations
 {
     public partial class InitialCreate : Migration
     {
@@ -199,9 +199,11 @@ namespace FitnessShopSystem.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Brand = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
+                    Flavour = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     ManufacturerId = table.Column<int>(type: "int", nullable: false)
