@@ -76,7 +76,7 @@
             var products = productsQuery
                 .Skip((query.CurrentPage - 1) * ProductSearchQueryModel.ProductsPerPage)
                 .Take(ProductSearchQueryModel.ProductsPerPage)
-                .Select(p => new ProductEditViewModel
+                .Select(p => new ProductServiceModel
                 {
                     Brand = p.Brand,
                     Price = p.Price,
@@ -167,14 +167,31 @@
                 return RedirectToAction(nameof(ManufacturesController.Create), "Manufactures");
             }
 
-            var product = this.products.Details(id);
+            var product = this.data
+                            .Products
+                            .Where(p => p.Id == id)
+                            .Select(p => new ProductDetailsServiceModel
+                            {
+                                Id = p.Id,
+                                Name = p.Name,
+                                Brand = p.Brand,
+                                Price = p.Price,
+                                Description = p.Description,
+                                Flavour = p.Flavour,
+                                ImageUrl = p.ImageUrl,
+                                CategoryName = p.Category.Name,
+                                CategoryId = p.CategoryId,
+                                ManufacturerName = p.Manufacturer.Name,
+                                ManufacturerId = p.ManufacturerId,
+                            })
+                            .FirstOrDefault();
 
             return View(product);
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult Edit(int id, ProductFormModel product)
+        public IActionResult Edit(int id, ProductServiceModel product)
         {
             if (!this.manufacturers.IsManufacturer(this.User.GetId()))
             {

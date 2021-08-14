@@ -1,5 +1,6 @@
 ﻿namespace FitnessShopSystem.Models.Products
 {
+    using FitnessShopSystem.Services.Products;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
@@ -20,6 +21,6 @@
 
         public IEnumerable<string> Brands { get; set; }
 
-        public IEnumerable<ProductEditViewModel> Products { get; set; }
+        public IEnumerable<ProductServiceModel> Products { get; set; }
     }
 }

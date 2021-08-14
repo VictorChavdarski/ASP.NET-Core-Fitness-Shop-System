@@ -10,7 +10,7 @@
             ProductSorting sorting,
             int currentPage);
 
-        ProductEditViewModel Details(int productId);
+        ProductServiceModel Details(int productId);
 
         int Create(
             string name,
