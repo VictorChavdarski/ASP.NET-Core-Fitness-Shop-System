@@ -27,12 +27,15 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Programs" asp-action="Add">Add Program</a>
                             </li>
                         }
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="All">Supplements</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Programs" asp-action="All">Training Programs</a>
-                        </li>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Shop
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-area="" asp-controller="Products" asp-action="All">Supplements</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Programs" asp-action="All">Training Programs</a>
+                            </div>
+                        </div>
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

@@ -58,10 +58,10 @@
     {
         <div class="col-md-4">
             <div class="card mb-3">
-                <img class="card-img-top" src="@product.ImageUrl" alt="Card image cap">
+                <a asp-controller="Products" asp-action="Buy" asp-route-id="@product.Id"><img class="card-img-top" src="@product.ImageUrl" alt="Card image cap"></a>
                 <div class="card-body text-center">
-                    <h5 class="card-title text-center">@product.Brand @product.Price</h5>
-                    <a asp-controller="Products" asp-action="Buy" asp-route-Id="@product.Id" class="btn btn-primary">Buy</a>
+                    <h5 class="card-title text-center">@product.Name</h5>
+                    <h5 class="card-title text-center">@product.Price BGN</h5>
                 </div>
             </div>
         </div>

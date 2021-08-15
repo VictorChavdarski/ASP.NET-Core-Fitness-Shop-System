@@ -4,7 +4,7 @@
 
     public class CartController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Order()
         {
             return View();
         }

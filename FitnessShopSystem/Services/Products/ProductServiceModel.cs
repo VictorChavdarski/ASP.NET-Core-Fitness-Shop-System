@@ -14,9 +14,9 @@ namespace FitnessShopSystem.Services.Products
 
         public string Description { get; set; }
 
-        public string Flavour { get; set; }
-
         public string ImageUrl { get; set; }
+
+        public string Flavour { get; set; }
 
         public string CategoryName { get; set; }
 

@@ -56,29 +56,27 @@
             };
         }
 
-        public ProductServiceModel Details(int productId)
-        {
-            var product = this.data
-                            .Products
-                            .Where(p => p.Id == productId)
-                            .Select(p => new ProductServiceModel
-                            {
-                                Id = p.Id,
-                                Name = p.Name,
-                                Brand = p.Brand,
-                                Price = p.Price,
-                                Description = p.Description,
-                                Flavour = p.Flavour,
-                                ImageUrl = p.ImageUrl,
-                                CategoryName = p.Category.Name,
-                                CategoryId = p.CategoryId,
-                                //ManufacturerName = p.Manufacturer.Name,
-                               // ManufacturerId = p.ManufacturerId,
-                            })
-                            .FirstOrDefault();
+        public ProductDetailsServiceModel Details(int productId)
+         => this.data
+            .Products
+            .Where(p => p.Id == productId)
+            .Select(p => new ProductDetailsServiceModel
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Brand = p.Brand,
+                Price = p.Price,
+                Description = p.Description,
+                Flavour = p.Flavour,
+                ImageUrl = p.ImageUrl,
+                CategoryId = p.CategoryId,
+                CategoryName = p.Category.Name,
+                ManufacturerId = p.ManufacturerId,
+                ManufacturerName = p.Manufacturer.Name,
+                UserId = p.Manufacturer.UserId
 
-            return product;
-        }
+            })
+            .FirstOrDefault();
 
         public int Create(string name, string brand, decimal price, string description, string flavour, string imageUrl, int categoryId, int manufacturerId)
         {
@@ -103,6 +101,11 @@
         public bool Edit(int id, string name, string brand, decimal price, string description, string flavour, string imageUrl, int categoryId, int manufacturerId)
         {
             var product = this.data.Products.Find(id);
+
+            if (product.ManufacturerId != manufacturerId)
+            {
+                return false;
+            }
 
             if (product == null)
             {

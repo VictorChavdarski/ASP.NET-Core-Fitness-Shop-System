@@ -22,6 +22,9 @@
 
         public DbSet<Manufacturer> Manufacturers { get; set; }
 
+        public DbSet<Delivery> Deliveries { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder
@@ -65,6 +68,13 @@
                 .WithOne()
                 .HasForeignKey<Instructor>(m => m.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+             .Entity<Delivery>()
+             .HasOne<IdentityUser>()
+             .WithOne()
+             .HasForeignKey<Delivery>(d => d.UserId)
+             .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(builder);
         }

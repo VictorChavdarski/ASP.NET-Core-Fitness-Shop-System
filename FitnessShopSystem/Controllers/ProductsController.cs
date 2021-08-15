@@ -33,20 +33,21 @@
         [Authorize]
         public IActionResult Buy(int id)
         {
-            var product = this.data.Products.Where(p => p.Id == id)
-                .Select(p => new ProductBuyViewModel
-                {
-                    Name = p.Name,
-                    Brand = p.Brand,
-                    Price = p.Price,
-                    Description = p.Description,
-                    Flavour = p.Flavour,
-                    ImageUrl = p.ImageUrl,
-                    CategoryName = p.Category.Name
-                })
-                .FirstOrDefault();
+            var product = this.products.Details(id);
 
-            return View(product);
+            return View(new ProductServiceModel
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Brand = product.Brand,
+                Price = product.Price,
+                Description = product.Description,
+                ImageUrl = product.ImageUrl,
+                Flavour = product.Flavour,
+                CategoryId = product.CategoryId,
+                Categories = this.products.AllProductCategories()
+            });
+
         }
 
         public IActionResult All([FromQuery] ProductSearchQueryModel query)
@@ -78,6 +79,8 @@
                 .Take(ProductSearchQueryModel.ProductsPerPage)
                 .Select(p => new ProductServiceModel
                 {
+                    Id = p.Id,
+                    Name = p.Name,
                     Brand = p.Brand,
                     Price = p.Price,
                     ImageUrl = p.ImageUrl,
@@ -167,26 +170,24 @@
                 return RedirectToAction(nameof(ManufacturesController.Create), "Manufactures");
             }
 
-            var product = this.data
-                            .Products
-                            .Where(p => p.Id == id)
-                            .Select(p => new ProductDetailsServiceModel
-                            {
-                                Id = p.Id,
-                                Name = p.Name,
-                                Brand = p.Brand,
-                                Price = p.Price,
-                                Description = p.Description,
-                                Flavour = p.Flavour,
-                                ImageUrl = p.ImageUrl,
-                                CategoryName = p.Category.Name,
-                                CategoryId = p.CategoryId,
-                                ManufacturerName = p.Manufacturer.Name,
-                                ManufacturerId = p.ManufacturerId,
-                            })
-                            .FirstOrDefault();
+            var product = this.products.Details(id);
 
-            return View(product);
+            if (product.UserId != userId)
+            {
+                return Unauthorized();
+            }
+
+            return View(new ProductServiceModel
+            {
+                Name = product.Name,
+                Brand = product.Brand,
+                Price = product.Price,
+                Description = product.Description,
+                ImageUrl = product.ImageUrl,
+                Flavour = product.Flavour,
+                CategoryId = product.CategoryId,
+                Categories = this.products.AllProductCategories()
+            });
         }
 
         [Authorize]
@@ -205,14 +206,8 @@
                 return RedirectToAction(nameof(ManufacturesController.Create), "Manufactures");
             }
 
-            if (!this.products.CategoryExist(product.CategoryId))
-            {
-                this.ModelState.AddModelError(nameof(product.CategoryId), "Category does not exist!");
-            }
-
             if (!ModelState.IsValid)
             {
-                product.Categories = this.products.AllProductCategories();
                 return View(product);
             }
 

@@ -8,6 +8,7 @@
 @inject IInstructorService Instructors
 
 <ul class="navbar-nav">
+
     @if (SignInManager.IsSignedIn(User))
     {
         var userId = User.GetId();
@@ -15,30 +16,51 @@
         var userIsInstructor = Instructors.IsInstructor(userId);
 
 
-        @if (userIsManufacturer)
+        @if (userIsManufacturer && userIsInstructor)
         {
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Mine">My Products</a>
-            </li>
+            <div class="btn-group">
+                <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Account
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" asp-area="" asp-controller="Products" asp-action="Mine">My Products</a>
+                    <a class="dropdown-item" asp-area="" asp-controller="Programs" asp-action="Mine">My Programs</a>
+                </div>
+            </div>
+        }
+        else if (userIsManufacturer)
+        {
+            <div class="btn-group">
+                <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Account
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" asp-area="" asp-controller="Products" asp-action="Mine">My Products</a>
+                </div>
+            </div>
+        }
+        else if (userIsInstructor)
+        {
+            <div class="btn-group">
+                <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Account
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" asp-area="" asp-controller="Programs" asp-action="Mine">My Programs</a>
+                </div>
+            </div>
         }
         else
         {
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Manufactures" asp-action="Create">Become manufacturer</a>
-            </li>
-        }
-
-        @if (userIsInstructor)
-        {
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Programs" asp-action="Mine">My Programs</a>
-            </li>
-        }
-        else
-        {
-            <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="" asp-controller="Instructors" asp-action="Create">Become Instructor</a>
-            </li>
+            <div class="btn-group">
+                <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Join Us
+                </button>
+                <div class="dropdown-menu">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Manufactures" asp-action="Create">Become manufacturer</a>
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Instructors" asp-action="Create">Become Instructor</a>
+                </div>
+            </div>
         }
 
         <li class="nav-item">

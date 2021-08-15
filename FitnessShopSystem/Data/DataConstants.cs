@@ -2,6 +2,33 @@
 {
     public class DataConstants
     {
+        public class Delivery
+        {
+            public const int CustomerFirstNameMinLength = 3;
+            public const int CustomerFirstNameMaxLength = 30;
+
+            public const int CustomerLastNameMinLength = 3;
+            public const int CustomerLastNameMaxLength = 30;
+
+            public const int CompanyNameMinLength = 3;
+            public const int CompanyNameMaxLength = 30;
+
+            public const int AddressMinLength = 5;
+            public const int AddressMaxLength = 50;
+
+            public const int PostalCodeMinValue = 4;
+            public const int PostalCodeMaxValue = 5;
+
+            public const int CityNameMinLength = 3;
+            public const int CityNameMaxLength = 30;
+
+            public const int CountryNameMinLength = 3;
+            public const int CountryNameMaxlength = 30;
+
+            public const int PhoneNumberMinLength = 10;
+            public const int PhoneNumberMaxLength = 12;
+        }
+    
         public class TrainingProgram
         {
             public const int NameMinLength = 5;
