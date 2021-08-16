@@ -4,37 +4,24 @@
     this.ViewData["Title"] = "Buy Product";
 }
 
-<div class="container bootdey">
-    <div class="col-md-12">
-        <section class="panel">
-            <div class="panel-body">
-                <div class="col-md-6">
-                    <div class="pro-img-details">
-                        <img src="@Model.ImageUrl">
-                    </div>
 
-                </div>
-                <div class="col-md-6">
-                    <h4 class="pro-d-title">
-                        <a href="#" class="">
-                            @Model.Name
-                        </a>
-                    </h4>
-                    <p>
-                        @Model.Description
-                    </p>
-                    <div class="product_meta">
-                        <span class="posted_in"> <strong>Categories:</strong>@Model.CategoryName</a></span>
-                    </div>
-                    <div class="m-bot15"> <strong>Price : </strong><span class="pro-price">@Model.Price</span></div>
-                    <p>
-                        <a asp-controller="Deliveries" asp-action="Order" asp-route-id="@Model.Id" class="btn btn-primary">Buy It Now</a>
-                    </p>
-                    <p>
-                        <button class="btn btn-round btn-primary" type="button">Add to Cart</button>
-                    </p>
-                </div>
-            </div>
-        </section>
+<div class="row">
+    <div class="col-md-6">
+        <div class="pro-img-details">
+            <img src="@Model.ImageUrl">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h4 class="pro-d-title font-weight-bold text-center" style="font-size:250%">
+            @Model.Name
+        </h4>
+        <div class="m-bot15" style="font-size:150%"> <strong>Price : </strong><span class="price">@Model.Price</span></div>
+        <hr />
+        <p>
+            @Model.Description
+        </p>
+        <p>
+            <a asp-controller="Deliveries" asp-action="Order" asp-route-id="@Model.Id" type="button" class="btn btn-outline-dark">Buy It Now</a>
+        </p>
     </div>
 </div>

@@ -1,6 +1,7 @@
 ﻿namespace FitnessShopSystem.Models.Deliveries
 {
     using FitnessShopSystem.Data.Models;
+    using FitnessShopSystem.Services.Products;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
@@ -45,6 +46,7 @@
 
         public int UserId { get; set; }
 
-        public IEnumerable<Product> Products { get; set; }
+        public int ProductId { get; set; }
+
     }
 }

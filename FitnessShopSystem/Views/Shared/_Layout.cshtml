@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body>
+<body style="background-image: url('https://images.pexels.com/photos/235922/pexels-photo-235922.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
@@ -18,15 +18,6 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        @if (this.User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Add">Add Product</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Programs" asp-action="Add">Add Program</a>
-                            </li>
-                        }
                         <div class="btn-group">
                             <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Shop
@@ -43,6 +34,8 @@
         </nav>
     </header>
 
+
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -51,7 +44,7 @@
 
 
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted" style=" background-color:white">
         <div class="container">
             &copy; @DateTime.UtcNow.Year - FitnessShopSystem
         </div>

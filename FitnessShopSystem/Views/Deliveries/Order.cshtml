@@ -7,55 +7,51 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12 offset-md-2 col-md-7">
-            <h2 class="heading-margin text-center">Become Instructor</h2>
+            <h2 class="heading-margin text-center">Shipping address</h2>
 
             <form method="post">
-                <div class="form-group">
-                    <label asp-for="CustomerFirstName">First Name</label>
-                    <input asp-for="CustomerFirstName" class="form-control">
-                    <span asp-validation-for="CustomerFirstName" class="small text-danger"></span>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <input asp-for="CustomerFirstName" class="form-control" placeholder="First name">
+                        <span asp-validation-for="CustomerFirstName" class="small text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input asp-for="CustomerLastName" class="form-control" placeholder="Last name">
+                        <span asp-validation-for="CustomerLastName" class="small text-danger"></span>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label asp-for="CustomerLastName">Last Name</label>
-                    <input asp-for="CustomerLastName" class="form-control">
-                    <span asp-validation-for="CustomerLastName" class="small text-danger"></span>
+                    <input asp-for="Email" class="form-control" placeholder="Email">
+                    <span asp-validation-for="Email" class="small text-danger"></span>
                 </div>
+
                 <div class="form-group">
-                    <label asp-for="Company">Company</label>
-                    <input asp-for="Company" class="form-control">
+                    <input asp-for="Company" class="form-control" placeholder="Company(optional)">
                     <span asp-validation-for="Company" class="small text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Address">Address</label>
-                    <input asp-for="Address" class="form-control">
+                    <input asp-for="Address" class="form-control" placeholder="Address">
                     <span asp-validation-for="Address" class="small text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <label asp-for="PostalCode">Postal Code</label>
-                    <input asp-for="PostalCode" class="form-control">
-                    <span asp-validation-for="PostalCode" class="small text-danger"></span>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <input asp-for="PostalCode" class="form-control" placeholder="Postal code">
+                        <span asp-validation-for="PostalCode" class="small text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input asp-for="City" class="form-control" placeholder="City">
+                        <span asp-validation-for="City" class="small text-danger"></span>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label asp-for="City">City</label>
-                    <input asp-for="City" class="form-control">
-                    <span asp-validation-for="City" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Country">Country</label>
-                    <input asp-for="Country" class="form-control">
+                    <input asp-for="Country" class="form-control" placeholder="Country">
                     <span asp-validation-for="Country" class="small text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Email">Email</label>
-                    <input asp-for="Email" class="form-control">
-                    <span asp-validation-for="Email" class="small text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Phone">Phone</label>
-                    <input asp-for="Phone" class="form-control">
+                    <input asp-for="Phone" class="form-control" placeholder="Phone">
                     <span asp-validation-for="Phone" class="small text-danger"></span>
                 </div>
-                <input class="btn btn-primary" type="submit" value="Save" />
+                <input class="btn btn-dark" type="submit" value="Confirm order" />
             </form>
         </div>
     </div>
