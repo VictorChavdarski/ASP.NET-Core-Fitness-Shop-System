@@ -1,9 +1,10 @@
 ﻿namespace FitnessShopSystem.Data
 {
-    using FitnessShopSystem.Data.Models;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+
+    using FitnessShopSystem.Data.Models;
 
     public class FitnessShopDbContext : IdentityDbContext
     {
@@ -41,26 +42,26 @@
                 .HasForeignKey(p => p.ManufacturerId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder
+             builder
                 .Entity<Manufacturer>()
                 .HasOne<IdentityUser>()
                 .WithOne()
                 .HasForeignKey<Manufacturer>(m => m.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder
-               .Entity<TrainingProgram>()
-               .HasOne(c => c.Category)
-               .WithMany(c => c.Programs)
-               .HasForeignKey(c => c.CategoryId)
-               .OnDelete(DeleteBehavior.Restrict);
+             builder
+                .Entity<TrainingProgram>()
+                .HasOne(c => c.Category)
+                .WithMany(c => c.Programs)
+                .HasForeignKey(c => c.CategoryId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            builder
-              .Entity<TrainingProgram>()
-              .HasOne(p => p.Instructor)
-              .WithMany(m => m.Programs)
-              .HasForeignKey(p => p.InstructorId)
-              .OnDelete(DeleteBehavior.Restrict);
+             builder
+                .Entity<TrainingProgram>()
+                .HasOne(p => p.Instructor)
+                .WithMany(m => m.Programs)
+                .HasForeignKey(p => p.InstructorId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .Entity<Instructor>()
@@ -70,11 +71,11 @@
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
-             .Entity<Delivery>()
-             .HasOne<IdentityUser>()
-             .WithOne()
-             .HasForeignKey<Delivery>(d => d.UserId)
-             .OnDelete(DeleteBehavior.Restrict);
+                .Entity<Delivery>()
+                .HasOne<IdentityUser>()
+                .WithOne()
+                .HasForeignKey<Delivery>(d => d.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(builder);
         }

@@ -1,7 +1,9 @@
 ﻿namespace FitnessShopSystem.Services.Products
 {
     using System.Collections.Generic;
+
     using FitnessShopSystem.Models.Products;
+    using FitnessShopSystem.Services.Products.Models;
 
     public interface IProductService
     {

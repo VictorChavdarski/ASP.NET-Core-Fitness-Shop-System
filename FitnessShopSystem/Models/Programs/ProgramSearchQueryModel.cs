@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-
-namespace FitnessShopSystem.Models.Programs
+﻿namespace FitnessShopSystem.Models.Programs
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+
     public class ProgramSearchQueryModel
     {
         public const int ProgramsPerPage = 6;

@@ -1,0 +1,48 @@
+﻿@model ProgramFormModel
+
+@{
+    ViewData["Title"] = "Edit Program";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 offset-md-2 col-md-7">
+            <h2 class="heading-margin text-center"><strong>@ViewBag.Title</h2>
+
+            <form method="post">
+                <div class="form-group">
+                    <label asp-for="Name">Name</label>
+                    <input asp-for="Name" class="form-control" placeholder="Protein, Creatine, BCAA...">
+                    <span asp-validation-for="Name" class="small text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Level">Level</label>
+                    <input asp-for="Level" class="form-control" placeholder="Banana, chocolate, vanilla...">
+                    <span asp-validation-for="Level" class="small text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description">Description</label>
+                    <textarea asp-for="Description" rows="3" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="small text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ImageUrl">Image URL</label>
+                    <input asp-for="ImageUrl" class="form-control">
+                    <span asp-validation-for="ImageUrl" class="small text-danger"> </span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CategoryId">Category</label>
+                    <select asp-for="CategoryId" class="form-control">
+                        @foreach (var category in Model.Categories)
+                        {
+                            <option value="@category.Id">@category.Name</option>
+                        }
+                    </select>
+                </div>
+
+                <input class="btn btn-primary" type="submit" value="Save" style="background-color:black; width:30%; position:center" />
+                </strong>
+            </form>
+        </div>
+    </div>
+</div>

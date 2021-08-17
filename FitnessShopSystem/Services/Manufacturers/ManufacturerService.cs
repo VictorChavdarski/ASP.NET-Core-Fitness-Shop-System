@@ -1,6 +1,7 @@
 ﻿namespace FitnessShopSystem.Services.Manufacturers
 {
     using System.Linq;
+
     using FitnessShopSystem.Data;
 
     public class ManufacturerService : IManufacturerService

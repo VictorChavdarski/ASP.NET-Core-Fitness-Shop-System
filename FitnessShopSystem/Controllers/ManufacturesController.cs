@@ -1,8 +1,10 @@
 ﻿namespace FitnessShopSystem.Controllers
 {
     using System.Linq;
+
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
+
     using FitnessShopSystem.Data;
     using FitnessShopSystem.Models.Manufactures;
     using FitnessShopSystem.Infrastructure;
@@ -48,7 +50,7 @@
             this.data.Manufacturers.Add(manufacturerData);
             this.data.SaveChanges();
 
-            return RedirectToAction("All", "Products");
+            return RedirectToAction("Mine", "Products");
         }
     }
 }

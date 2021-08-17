@@ -2,13 +2,17 @@
 {
     using System.Linq;
     using System.Collections.Generic;
+
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
+
     using FitnessShopSystem.Data;
     using FitnessShopSystem.Models.Products;
-    using Microsoft.AspNetCore.Authorization;
     using FitnessShopSystem.Infrastructure;
     using FitnessShopSystem.Services.Products;
     using FitnessShopSystem.Services.Manufacturers;
+    using FitnessShopSystem.Services.Products.Models;
+
     using AutoMapper;
 
     public class ProductsController : Controller
@@ -177,17 +181,11 @@
                 return Unauthorized();
             }
 
-            return View(new ProductServiceModel
-            {
-                Name = product.Name,
-                Brand = product.Brand,
-                Price = product.Price,
-                Description = product.Description,
-                ImageUrl = product.ImageUrl,
-                Flavour = product.Flavour,
-                CategoryId = product.CategoryId,
-                Categories = this.products.AllProductCategories()
-            });
+            var productForm = this.mapper.Map<ProductFormModel>(product);
+
+            productForm.Categories = this.products.AllProductCategories();
+
+            return View(productForm);
         }
 
         [Authorize]
@@ -227,7 +225,7 @@
                 return BadRequest();
             }
 
-            return RedirectToAction(nameof(All));
+            return RedirectToAction(nameof(Mine));
         }
     }
 }

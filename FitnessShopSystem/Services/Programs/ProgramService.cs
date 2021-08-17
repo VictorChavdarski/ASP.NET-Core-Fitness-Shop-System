@@ -1,11 +1,13 @@
-﻿using FitnessShopSystem.Data;
-using FitnessShopSystem.Data.Models;
-using FitnessShopSystem.Models.Programs;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace FitnessShopSystem.Services.Programs
+﻿namespace FitnessShopSystem.Services.Programs
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using FitnessShopSystem.Data;
+    using FitnessShopSystem.Data.Models;
+    using FitnessShopSystem.Models.Programs;
+    using FitnessShopSystem.Services.Programs.Models;
+  
     public class ProgramService : IProgramService
     {
         private readonly FitnessShopDbContext data;
@@ -72,13 +74,14 @@ namespace FitnessShopSystem.Services.Programs
                 .Categories
                 .Any(c => c.Id == categoryId);
 
-        public int Create(string name, string level, string description, int categoryId, int instructorId)
+        public int Create(string name, string level, string description,string imageUrl, int categoryId, int instructorId)
         {
             var programData = new TrainingProgram
             {
                 Name = name,
                 Level = level,
                 Description = description,
+                ImageUrl= imageUrl,
                 CategoryId = categoryId,
                 InstructorId = instructorId
             };
@@ -93,13 +96,58 @@ namespace FitnessShopSystem.Services.Programs
          => programQuery
              .Select(p => new ProgramServiceModel
              {
+                 Id = p.Id,
                  Name = p.Name,
                  Level = p.Level,
                  Description = p.Description,
+                 ImageUrl = p.ImageUrl,
                  CategoryId = p.CategoryId
              })
              .ToList();
 
-        
+        public ProgramDetailsServiceModel Details(int programId)
+        => this.data
+            .Programs
+            .Where(p => p.Id == programId)
+            .Select(p => new ProgramDetailsServiceModel
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Level = p.Level,
+                Description = p.Description,
+                ImageUrl = p.ImageUrl,
+                CategoryId = p.CategoryId,
+                CategoryName = p.Category.Name,
+                InstructorId = p.InstructorId,
+                InstructorName = p.Instructor.FirstName,
+                UserId = p.Instructor.UserId
+
+            })
+            .FirstOrDefault();
+
+        public bool Edit(int id, string name, string description, string level, string imageUrl, int categoryId, int instructorId)
+        {
+            var program = this.data.Programs.Find(id);
+
+            if (program.InstructorId != instructorId)
+            {
+                return false;
+            }
+
+            if (program == null)
+            {
+                return false;
+            }
+
+            program.Name = name;
+            program.Description = description;
+            program.Level = level;
+            program.ImageUrl = imageUrl;
+            program.CategoryId = categoryId;
+
+            this.data.SaveChanges();
+
+            return true;
+        }
     }
 }

@@ -1,8 +1,9 @@
 ﻿namespace FitnessShopSystem.Models.Products
 {
-    using FitnessShopSystem.Services.Products;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+
+    using FitnessShopSystem.Services.Products.Models;
 
     using static Data.DataConstants.Product;
 

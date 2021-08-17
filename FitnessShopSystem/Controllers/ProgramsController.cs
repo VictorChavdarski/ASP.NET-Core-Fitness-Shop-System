@@ -1,29 +1,35 @@
 ﻿namespace FitnessShopSystem.Controllers
 {
-    using FitnessShopSystem.Data;
+    using System.Linq;
+
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
+
+    using FitnessShopSystem.Data;
     using FitnessShopSystem.Services.Instructors;
     using FitnessShopSystem.Services.Programs;
-    using System.Linq;
-    using Microsoft.AspNetCore.Authorization;
     using FitnessShopSystem.Infrastructure;
     using FitnessShopSystem.Models.Programs;
+    using FitnessShopSystem.Services.Programs.Models;
+    using AutoMapper;
 
     public class ProgramsController : Controller
     {
         private readonly FitnessShopDbContext data;
         private readonly IInstructorService instructors;
         private readonly IProgramService programs;
+        private readonly IMapper mapper;
 
         public ProgramsController(
             FitnessShopDbContext data,
             IInstructorService instructors,
-            IProgramService programs
-           )
+            IProgramService programs,
+            IMapper mapper)
         {
             this.data = data;
             this.instructors = instructors;
             this.programs = programs;
+            this.mapper = mapper;
         }
 
         public IActionResult All([FromQuery] ProgramSearchQueryModel query)
@@ -55,7 +61,9 @@
                 .Take(ProgramSearchQueryModel.ProgramsPerPage)
                 .Select(p => new ProgramEditViewModel
                 {
+                    Id = p.Id,
                     Name = p.Name,
+                    ImageUrl = p.ImageUrl,
                     Description = p.Description,
                     Level = p.Level
                 })
@@ -116,6 +124,7 @@
                program.Name,
                program.Level,
                program.Description,
+               program.ImageUrl,
                program.CategoryId,
                instructorId);
 
@@ -128,6 +137,68 @@
             var myPrograms = this.programs.ByUser(this.User.GetId());
 
             return View(myPrograms);
+        }
+
+        [Authorize]
+        public IActionResult Edit(int id)
+        {
+            var userId = this.User.GetId();
+
+            if (!this.instructors.IsInstructor(userId))
+            {
+                return RedirectToAction(nameof(InstructorsController.Create), "Instructors");
+            }
+
+            var program = this.programs.Details(id);
+
+            if (program.UserId != userId)
+            {
+                return Unauthorized();
+            }
+
+            var programForm = this.mapper.Map<ProgramFormModel>(program);
+
+            programForm.Categories = this.programs.AllProgramCategories();
+
+            return View(programForm);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult Edit(int id, ProgramServiceModel program)
+        {
+            if (!this.instructors.IsInstructor(this.User.GetId()))
+            {
+                return RedirectToAction(nameof(InstructorsController.Create), "Instructors");
+            }
+
+            var instructorId = this.instructors.GetId(this.User.GetId());
+
+            if (instructorId == 0)
+            {
+                return RedirectToAction(nameof(InstructorsController.Create), "Instructors");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(program);
+            }
+
+            var editedProgram = this.programs.Edit(
+               id,
+               program.Name,
+               program.Description,
+               program.Level,
+               program.ImageUrl,
+               program.CategoryId,
+               instructorId);
+
+            if (!editedProgram)
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction(nameof(Mine));
         }
     }
 }

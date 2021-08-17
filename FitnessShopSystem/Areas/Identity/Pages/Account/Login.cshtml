@@ -2,13 +2,14 @@
 @model LoginModel
 
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = "Login";
 }
 
-<h1>@ViewData["Title"]</h1>
-<div class="row offset-3">
+
+<div class="row offset-md-4 col-md-9">
     <div class="col-md-4" style="background-color:white">
         <section>
+            <h1><strong>Log in</h1>
             <form id="account" method="post">
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
@@ -21,27 +22,19 @@
                     <input asp-for="Input.Password" class="form-control" />
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
-                
+
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Sign In</button>
+                    <button type="submit" class="btn" style="width:100%; background-color:black; color:white"><strong>Sign In</strong></button>
                 </div>
                 <div class="form-group">
                     <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" style="color:black">Create account</a>
                     </p>
                 </div>
+                </strong>
             </form>
+           
         </section>
-    </div>
-
-    <div>
-        
-
-    </div>
-    <div class="col-md-4" style="background-color:white">
-        <h2>Никога не сте използвали Myprotein?</h2>
-        <p>Влезнете в акаунта си, за да получите най-евтините хранителни добавки в цяла Европа. Ние също така ви предлагаме ексклузивни подаръци</p>
-        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register</a>
     </div>
 </div>
 

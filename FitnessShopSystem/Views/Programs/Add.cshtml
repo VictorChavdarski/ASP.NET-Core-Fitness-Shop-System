@@ -7,7 +7,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12 offset-md-2 col-md-7">
-            <h2 class="heading-margin text-center">Add Program</h2>
+            <h2 class="heading-margin text-center"><strong>Add Program</h2>
 
             <form method="post">
                 <div class="form-group">
@@ -26,6 +26,11 @@
                     <span asp-validation-for="Description" class="small text-danger"></span>
                 </div>
                 <div class="form-group">
+                    <label asp-for="ImageUrl">ImageUrl</label>
+                    <textarea asp-for="ImageUrl" rows="3" class="form-control"></textarea>
+                    <span asp-validation-for="ImageUrl" class="small text-danger"></span>
+                </div>
+                <div class="form-group">
                     <label asp-for="CategoryId">Category</label>
                     <select asp-for="CategoryId" class="form-control">
                         @foreach (var category in Model.Categories)
@@ -35,6 +40,7 @@
                     </select>
                 </div>
                 <input class="btn btn-primary" type="submit" value="Save" />
+                </strong>
             </form>
         </div>
     </div>

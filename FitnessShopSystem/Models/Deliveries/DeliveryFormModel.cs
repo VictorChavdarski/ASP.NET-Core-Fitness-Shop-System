@@ -1,8 +1,5 @@
 ﻿namespace FitnessShopSystem.Models.Deliveries
 {
-    using FitnessShopSystem.Data.Models;
-    using FitnessShopSystem.Services.Products;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using static Data.DataConstants.Delivery;

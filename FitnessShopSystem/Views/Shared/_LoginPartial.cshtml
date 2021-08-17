@@ -19,8 +19,10 @@
         @if (userIsManufacturer && userIsInstructor)
         {
             <div class="btn-group">
-                <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Account
+                <button type="button" class="btn btn-dark dropdown-toggle" style="background-color:black" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <strong>
+                        Account
+                    </strong>
                 </button>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" asp-area="" asp-controller="Products" asp-action="Mine">My Products</a>
@@ -31,8 +33,10 @@
         else if (userIsManufacturer)
         {
             <div class="btn-group">
-                <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Account
+                <button type="button" class="btn btn-dark dropdown-toggle" style="background-color:black" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <strong>
+                        Account
+                    </strong>
                 </button>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" asp-area="" asp-controller="Products" asp-action="Mine">My Products</a>
@@ -42,8 +46,10 @@
         else if (userIsInstructor)
         {
             <div class="btn-group">
-                <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Account
+                <button type="button" class="btn btn-dark dropdown-toggle" style="background-color:black" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <strong>
+                        Account
+                    </strong>
                 </button>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" asp-area="" asp-controller="Programs" asp-action="Mine">My Programs</a>
@@ -53,8 +59,10 @@
         else
         {
             <div class="btn-group">
-                <button type="button" class="btn btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Join Us
+                <button type="button" class="btn btn-dark dropdown-toggle" style="background-color:black" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <strong>
+                        Join Us
+                    </strong>
                 </button>
                 <div class="dropdown-menu">
                     <a class="nav-link text-dark" asp-area="" asp-controller="Manufactures" asp-action="Create">Become manufacturer</a>
@@ -65,15 +73,15 @@
 
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                <button type="submit" class="nav-link btn btn-link" style="color:black"><strong>Logout</strong></button>
             </form>
         </li>
     }
     else
     {
         <div class="btn-group">
-            <button type="button" class="btn btn-secondary dropdown-toggle table-hover" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Account
+            <button type="button" class="btn btn-dark dropdown-toggle table-hover" style="background-color:black" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <strong> Account </strong>
             </button>
             <div class="dropdown-menu dropdown-menu-right">
                 <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>

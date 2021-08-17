@@ -1,12 +1,14 @@
 ﻿namespace FitnessShopSystem.Controllers
 {
+    using System.Linq;
+
     using FitnessShopSystem.Data;
     using FitnessShopSystem.Infrastructure;
     using FitnessShopSystem.Models.Instructors;
     using FitnessShopSystem.Data.Models;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using System.Linq;
 
     public class InstructorsController : Controller
     {
@@ -51,7 +53,7 @@
             this.data.Instructors.Add(instructorData);
             this.data.SaveChanges();
 
-            return RedirectToAction("All", "Programs");
+            return RedirectToAction("Mine", "Programs");
         }
     }
 }

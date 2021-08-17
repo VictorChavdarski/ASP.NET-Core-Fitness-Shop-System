@@ -1,8 +1,9 @@
 ﻿namespace FitnessShopSystem.Models.Programs
 {
-    using FitnessShopSystem.Services.Programs;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+
+    using FitnessShopSystem.Services.Programs.Models;
 
     using static Data.DataConstants.TrainingProgram;
 
@@ -17,6 +18,9 @@
         public string Description { get; set; }
        
         public string Level { get; set; }
+
+        public string ImageUrl { get; set; }
+
 
         [Display(Name = "Category")]
         public int CategoryId { get; set; }

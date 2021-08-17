@@ -1,23 +1,27 @@
 ﻿namespace FitnessShopSystem.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+
     using FitnessShopSystem.Data;
     using FitnessShopSystem.Data.Models;
     using FitnessShopSystem.Infrastructure;
     using FitnessShopSystem.Models.Deliveries;
     using FitnessShopSystem.Services.Products;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
+    using AutoMapper;
 
     public class DeliveriesController : Controller
     {
         private readonly IProductService products;
         private readonly FitnessShopDbContext data;
+        private readonly IMapper mapper;
 
         public DeliveriesController(IProductService products,
-            FitnessShopDbContext data)
+            FitnessShopDbContext data, IMapper mapper)
         {
             this.products = products;
             this.data = data;
+            this.mapper = mapper;
         }
 
         [Authorize]

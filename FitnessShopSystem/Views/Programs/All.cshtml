@@ -51,31 +51,33 @@
 @if (!Model.Programs.Any())
 {
     <h2 class="text-center">There are no any programs</h2>
+    <h3>  Why dont you add one ?</h3>
+    <a asp-controller="Programs" asp-action="Add" class="btn btn-outline-dark">Add new program</a>
 }
 
 <div class="row">
     @foreach (var program in Model.Programs)
     {
-        <div class="col-md-4">
-            <div class="card mb-3">
-                <div class="card-body text-center">
-                    <h5 class="card-title text-center">@program.Name @program.Level</h5>
-                    <a asp-controller="Programs" asp-action="Details" asp-route-Id="@program.Id" class="btn btn-primary">Details</a>
-                </div>
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <a asp-controller="Products" asp-action="Buy" asp-route-id="@program.Id"><img class="card-img-top" src="@program.ImageUrl" alt="Card image cap"></a>
+            <div class="card-body text-center">
+                <h5 class="card-title text-center">@program.Name</h5>
             </div>
         </div>
+    </div>
     }
 </div>
 
 <div class="row">
     <div class="col-md-6">
-        <a class="btn btn-primary float-left @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+        <a class="btn btn-dark float-left @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
            asp-controller="Programs"
            asp-action="All"
            asp-route-currentPage="@previousPage"
            asp-route-brand="@Model.Level"
            asp-route-searchTerm="@Model.SearchTerm"
-           asp-route-sorting="@((int)Model.Sorting)">Previous</a>
+           asp-route-sorting="@((int)Model.Sorting)" style="background-color:black" ><strong>Previous</strong></a>
     </div>
     <div class="col-md-6">
         <a class="btn btn-primary float-right @(Model.CurrentPage == maxPage || !Model.Programs.Any() ? "disabled" : string.Empty)"
@@ -84,7 +86,7 @@
            asp-route-currentPage="@(Model.CurrentPage + 1)"
            asp-route-brand="@Model.Level"
            asp-route-searchTerm="@Model.SearchTerm"
-           asp-route-sorting="@((int)Model.Sorting)">Next</a>
+           asp-route-sorting="@((int)Model.Sorting)" style="background-color:black"><strong>Next</strong></a>
     </div>
 </div>
 

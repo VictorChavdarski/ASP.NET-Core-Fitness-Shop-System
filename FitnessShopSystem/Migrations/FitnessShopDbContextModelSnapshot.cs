@@ -96,8 +96,6 @@ namespace FitnessShopSystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
-
                     b.HasIndex("UserId")
                         .IsUnique()
                         .HasFilter("[UserId] IS NOT NULL");
@@ -249,6 +247,9 @@ namespace FitnessShopSystem.Migrations
                         .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("InstructorId")
                         .HasColumnType("int");
@@ -473,12 +474,6 @@ namespace FitnessShopSystem.Migrations
 
             modelBuilder.Entity("FitnessShopSystem.Data.Models.Delivery", b =>
                 {
-                    b.HasOne("FitnessShopSystem.Data.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithOne()
                         .HasForeignKey("FitnessShopSystem.Data.Models.Delivery", "UserId")
@@ -487,8 +482,6 @@ namespace FitnessShopSystem.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId1");
-
-                    b.Navigation("Product");
 
                     b.Navigation("User");
                 });

@@ -1,6 +1,7 @@
 ﻿namespace FitnessShopSystem.Services.Instructors
 {
     using System.Linq;
+
     using FitnessShopSystem.Data;
 
     public class InstructorService : IInstructorService
@@ -13,13 +14,13 @@
         public bool IsInstructor(string userId)
                => this.data
                 .Instructors
-                .Any(m => m.UserId == userId);
+                .Any(i => i.UserId == userId);
 
         public int GetId(string userId)
          => this.data
                 .Instructors
-                .Where(m => m.UserId == userId)
-                .Select(m => m.Id)
+                .Where(i => i.UserId == userId)
+                .Select(i => i.Id)
                 .FirstOrDefault();
     }
 }

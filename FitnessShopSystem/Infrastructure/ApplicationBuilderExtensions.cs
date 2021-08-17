@@ -1,8 +1,10 @@
 ﻿namespace FitnessShopSystem.Infrastructure
 {
     using System.Linq;
+
     using FitnessShopSystem.Data;
     using FitnessShopSystem.Data.Models;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;

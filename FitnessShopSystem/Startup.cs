@@ -6,6 +6,7 @@ namespace FitnessShopSystem
     using FitnessShopSystem.Services.Products;
     using FitnessShopSystem.Services.Instructors;
     using FitnessShopSystem.Services.Programs;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;

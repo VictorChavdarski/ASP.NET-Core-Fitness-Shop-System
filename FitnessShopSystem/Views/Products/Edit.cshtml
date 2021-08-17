@@ -1,4 +1,4 @@
-﻿@model ProductServiceModel
+﻿@model ProductFormModel
 
 @{
     ViewData["Title"] = "Edit Product";
@@ -7,7 +7,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12 offset-md-2 col-md-7">
-            <h2 class="heading-margin text-center">@ViewBag.Title</h2>
+            <h2 class="heading-margin text-center"><strong>@ViewBag.Title</h2>
 
             <form method="post">
                 <div class="form-group">
@@ -49,7 +49,8 @@
                         }
                     </select>
                 </div>
-                <input class="btn btn-primary" type="submit" value="Save" />
+                <input class="btn btn-primary" type="submit" value="Save" style="background-color:black; width:30%; position:center" />
+                </strong>
             </form>
         </div>
     </div>

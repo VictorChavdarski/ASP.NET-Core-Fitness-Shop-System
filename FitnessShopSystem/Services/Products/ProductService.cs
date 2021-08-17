@@ -2,9 +2,12 @@
 {
     using System.Linq;
     using System.Collections.Generic;
+
     using FitnessShopSystem.Data;
     using FitnessShopSystem.Data.Models;
     using FitnessShopSystem.Models.Products;
+    using FitnessShopSystem.Services.Products.Models;
+
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
 
@@ -52,7 +55,7 @@
             {
                 TotalProducts = totalProducts,
                 CurrentPage = currentPage,
-                Products = products
+                Products = products,
             };
         }
 
@@ -60,22 +63,7 @@
          => this.data
             .Products
             .Where(p => p.Id == productId)
-            .Select(p => new ProductDetailsServiceModel
-            {
-                Id = p.Id,
-                Name = p.Name,
-                Brand = p.Brand,
-                Price = p.Price,
-                Description = p.Description,
-                Flavour = p.Flavour,
-                ImageUrl = p.ImageUrl,
-                CategoryId = p.CategoryId,
-                CategoryName = p.Category.Name,
-                ManufacturerId = p.ManufacturerId,
-                ManufacturerName = p.Manufacturer.Name,
-                UserId = p.Manufacturer.UserId
-
-            })
+            .ProjectTo<ProductDetailsServiceModel>(this.mapper.ConfigurationProvider)
             .FirstOrDefault();
 
         public int Create(string name, string brand, decimal price, string description, string flavour, string imageUrl, int categoryId, int manufacturerId)
