@@ -19,73 +19,68 @@
         @if (userIsManufacturer && userIsInstructor)
         {
             <div class="btn-group">
-                <button type="button" class="btn btn-dark dropdown-toggle" style="background-color:black" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <strong>
-                        Account
-                    </strong>
+                <button type="button" class="btn btn-dark dropdown-toggle" style="background-color:black; font-weight:bold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Account
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" asp-area="" asp-controller="Products" asp-action="Mine">My Products</a>
-                    <a class="dropdown-item" asp-area="" asp-controller="Programs" asp-action="Mine">My Programs</a>
+                    <a class="dropdown-item" style="font-weight:bold" asp-area="" asp-controller="Products" asp-action="Mine">My Products</a>
+                    <hr />
+                    <a class="dropdown-item" style="font-weight:bold" asp-area="" asp-controller="Programs" asp-action="Mine">My Programs</a>
                 </div>
             </div>
         }
         else if (userIsManufacturer)
         {
-            <div class="btn-group">
-                <button type="button" class="btn btn-dark dropdown-toggle" style="background-color:black" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <strong>
-                        Account
-                    </strong>
+            <div class="btn-group offset-11">
+                <button type="button" class="btn btn-dark dropdown-toggle" style="background-color:black; font-weight:bold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Account
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" asp-area="" asp-controller="Products" asp-action="Mine">My Products</a>
+                    <a class="dropdown-item" style="font-weight:bold" asp-area="" asp-controller="Products" asp-action="Mine">My Products</a>
                 </div>
             </div>
         }
         else if (userIsInstructor)
         {
-            <div class="btn-group">
-                <button type="button" class="btn btn-dark dropdown-toggle" style="background-color:black" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <strong>
-                        Account
-                    </strong>
+            <div class="btn-group offset-11">
+                <button type="button" class="btn btn-dark dropdown-toggle" style="background-color:black; font-weight:bold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Account
                 </button>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" asp-area="" asp-controller="Programs" asp-action="Mine">My Programs</a>
+                    <a class="dropdown-item" style="font-weight:bold" asp-area="" asp-controller="Programs" asp-action="Mine">My Programs</a>
                 </div>
             </div>
         }
         else
         {
-            <div class="btn-group">
-                <button type="button" class="btn btn-dark dropdown-toggle" style="background-color:black" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <strong>
-                        Join Us
-                    </strong>
+            <div class="btn-group offset-11">
+                <button type="button" class="btn btn-dark dropdown-toggle" style="background-color:black; font-weight:bold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Join Us
                 </button>
                 <div class="dropdown-menu">
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Manufactures" asp-action="Create">Become manufacturer</a>
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Instructors" asp-action="Create">Become Instructor</a>
+                    <a class="nav-link text-dark" style="font-weight:bold; color:black; text-align:center" asp-area="" asp-controller="Manufactures" asp-action="Create">Become Seller</a>
+                    <hr />
+                    <a class="nav-link text-dark" style="font-weight: bold; color: black; text-align: center" asp-area="" asp-controller="Instructors" asp-action="Create">Become Trainer</a>
                 </div>
             </div>
         }
 
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="nav-link btn btn-link" style="color:black"><strong>Logout</strong></button>
+                <button type="submit" class="nav-link btn btn-link" style="color:black">Logout</button>
             </form>
         </li>
     }
     else
     {
-        <div class="btn-group">
-            <button type="button" class="btn btn-dark dropdown-toggle table-hover" style="background-color:black" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-               <strong> Account </strong>
+        <div class="btn-group offset-11">
+            <button type="button" class="btn btn-dark dropdown-toggle" style="background-color:black; padding-left:20px; font-weight:bold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Account
             </button>
-            <div class="dropdown-menu dropdown-menu-right">
-                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            <div class="dropdown-menu">
+                <a class="nav-link text-center" style="font-weight:bold; color:black" asp-area="Identity" asp-page="/Account/Login">Log in</a>
+                <hr />
+                <a class="nav-link text-center" style="font-weight:bold; color:black" asp-area="Identity" asp-page="/Account/Register">Register</a>
             </div>
         </div>
     }

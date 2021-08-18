@@ -1,21 +1,18 @@
 ﻿namespace FitnessShopSystem.Controllers
 {
-    using System.Linq;
-
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
 
-    using FitnessShopSystem.Data;
     using FitnessShopSystem.Models.Manufactures;
     using FitnessShopSystem.Infrastructure;
-    using FitnessShopSystem.Data.Models;
+    using FitnessShopSystem.Services.Manufacturers;
 
     public class ManufacturesController : Controller
     {
-        private readonly FitnessShopDbContext data;
+        private readonly IManufacturerService manufacturers;
 
-        public ManufacturesController(FitnessShopDbContext data) 
-            => this.data = data;
+        public ManufacturesController(IManufacturerService manufacturers)
+            => this.manufacturers = manufacturers;
 
         [Authorize]
         public IActionResult Create() => View();
@@ -26,29 +23,22 @@
         {
             var userId = this.User.GetId();
 
-            var userIsAlreadyManufacturer = this.data
-                .Manufacturers
-                .Any(m => m.UserId == userId);
+            var userIsAlreadyManufacturer = this.manufacturers.IsManufacturer(userId);
 
             if (userIsAlreadyManufacturer)
             {
                 return BadRequest();
             }
-
+            
             if (!ModelState.IsValid)
             {
                 return View(manufacturer);
             }
 
-            var manufacturerData = new Manufacturer
-            {
-                Name = manufacturer.Name,
-                PhoneNumber = manufacturer.PhoneNumber,
-                UserId = userId
-            };
-
-            this.data.Manufacturers.Add(manufacturerData);
-            this.data.SaveChanges();
+            this.manufacturers.Create(
+                manufacturer.Name,
+                manufacturer.PhoneNumber,
+                userId);
 
             return RedirectToAction("Mine", "Products");
         }

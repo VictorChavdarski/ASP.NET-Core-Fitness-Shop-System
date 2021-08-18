@@ -1,0 +1,24 @@
+﻿@model ProgramServiceModel
+
+@{
+    this.ViewData["Title"] = "Program Details";
+}
+
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="pro-img-details">
+            <img src="@Model.ImageUrl">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h4 class="pro-d-title font-weight-bold text-center" style="font-size:250%">
+            @Model.Name
+        </h4>
+        <div class="m-bot15" style="font-size:150%"><span class="price">@Model.Level</span></div>
+        <hr />
+        <p>
+            @Model.Description
+        </p>
+    </div>
+</div>

@@ -22,7 +22,6 @@
             this.mapper = mapper;
         }
 
-
         public IActionResult Index()
         {
             var totalProducts = this.data.Products.Count();
@@ -41,6 +40,6 @@
             });
         }
 
-        public IActionResult Error()  => View();
+        public IActionResult Error() => View();
     }
 }

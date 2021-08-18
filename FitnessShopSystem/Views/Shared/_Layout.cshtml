@@ -11,24 +11,15 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><strong>Fitness Shop</strong></a>
+                <a class="navbar-brand" style="font-weight:bold; padding-right:100px" asp-area="" asp-controller="Home" asp-action="Index">Fitness Shop</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-dark dropdown-toggle" style="background-color:black" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <strong>
-                                    Shop
-                                </strong>
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-area="" asp-controller="Products" asp-action="All">Supplements</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="Programs" asp-action="All">Training Programs</a>
-                            </div>
-                        </div>
+                        <a class="btn btn-dark" style="background-color:black; font-weight:bold; padding-left:20px" asp-area="" asp-controller="Products" asp-action="All">Supplements</a>
+                        <a class="btn btn-dark" style="background-color:black; font-weight:bold" asp-area="" asp-controller="Programs" asp-action="All">Training Programs</a>
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -36,15 +27,14 @@
         </nav>
     </header>
 
-
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted" style=" background-color:white">
-        <div class="container">
+    <footer class="border-top footer text-muted" style=" background-color:black">
+        <div class="container" style="color:white">
             &copy; @DateTime.UtcNow.Year - FitnessShopSystem
         </div>
     </footer>

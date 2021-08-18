@@ -7,7 +7,7 @@
 
 @if (!Model.Any())
 {
-    <h2 class="text-center">You do not have any products!</h2>
+    <h2 class="text-center">You do not have any workouts!</h2>
 }
 else
 {
@@ -39,4 +39,7 @@ else
         </tbody>
     </table>
 }
-<a asp-controller="Programs" asp-action="Add" class="btn btn-dark" style="background-color:black"><strong>Add new program</strong></a>
+<div class="row" style="padding-top: 20px">
+        <a asp-controller="Programs" asp-action="Add" class="btn btn-dark offset-5" style="background-color:black"><strong>Add new program</strong></a>
+</div>
+

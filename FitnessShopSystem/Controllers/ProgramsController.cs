@@ -11,6 +11,7 @@
     using FitnessShopSystem.Infrastructure;
     using FitnessShopSystem.Models.Programs;
     using FitnessShopSystem.Services.Programs.Models;
+
     using AutoMapper;
 
     public class ProgramsController : Controller
@@ -30,6 +31,17 @@
             this.instructors = instructors;
             this.programs = programs;
             this.mapper = mapper;
+        }
+
+        [Authorize]
+        public IActionResult Details(int id)
+        {
+            var program = this.programs.Details(id);
+
+            var programData = this.mapper.Map<ProgramDetailsServiceModel>(program);
+
+            return View(programData);
+
         }
 
         public IActionResult All([FromQuery] ProgramSearchQueryModel query)

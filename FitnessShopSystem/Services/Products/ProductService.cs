@@ -10,6 +10,7 @@
 
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
+    using System.Threading.Tasks;
 
     public class ProductService : IProductService
     {
@@ -40,7 +41,8 @@
 
             productsQuery = sorting switch
             {
-                ProductSorting.Price => productsQuery.OrderBy(p => p.Price),
+                ProductSorting.PriceAscending => productsQuery.OrderBy(p => p.Price),
+                ProductSorting.PriceDescending => productsQuery.OrderByDescending(p => p.Price),
                 ProductSorting.DateCreated or _ => productsQuery.OrderByDescending(p => p.Id)
             };
 
@@ -147,5 +149,13 @@
                     Name = p.Name
                 })
                 .ToList();
+
+        public async Task DeleteAsync(int id)
+        {
+            var product = this.data.Products.Find(id);
+
+            this.data.Products.Remove(product);
+            await this.data.SaveChangesAsync();
+        }
     }
 }

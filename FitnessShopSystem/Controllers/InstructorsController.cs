@@ -1,21 +1,18 @@
 ﻿namespace FitnessShopSystem.Controllers
 {
-    using System.Linq;
-
-    using FitnessShopSystem.Data;
     using FitnessShopSystem.Infrastructure;
     using FitnessShopSystem.Models.Instructors;
-    using FitnessShopSystem.Data.Models;
+    using FitnessShopSystem.Services.Instructors;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     public class InstructorsController : Controller
     {
-        private readonly FitnessShopDbContext data;
+        private readonly IInstructorService instructors;
 
-        public InstructorsController(FitnessShopDbContext data)
-            => this.data = data;
+        public InstructorsController(IInstructorService instructors)
+            => this.instructors = instructors;
 
         [Authorize]
         public IActionResult Create() => View();
@@ -26,11 +23,9 @@
         {
             var userId = this.User.GetId();
 
-            var userIsAlreadyManufacturer = this.data
-                .Manufacturers
-                .Any(m => m.UserId == userId);
+            var userIsAlreadyInstructor = this.instructors.IsInstructor(userId);
 
-            if (userIsAlreadyManufacturer)
+            if (userIsAlreadyInstructor)
             {
                 return BadRequest();
             }
@@ -40,18 +35,13 @@
                 return View(instructor);
             }
 
-            var instructorData = new Instructor
-            {
-                FirstName = instructor.FirstName,
-                LastName = instructor.LastName,
-                Age = instructor.Age,
-                PhoneNumber = instructor.PhoneNumber,
-                Email = instructor.PhoneNumber,
-                UserId = userId
-            };
-
-            this.data.Instructors.Add(instructorData);
-            this.data.SaveChanges();
+            this.instructors.Create(
+                instructor.FirstName,
+                instructor.LastName,
+                instructor.Age,
+                instructor.PhoneNumber,
+                instructor.Email,
+                userId);
 
             return RedirectToAction("Mine", "Programs");
         }

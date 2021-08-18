@@ -15,6 +15,7 @@ namespace FitnessShopSystem
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using FitnessShopSystem.Services.Deliveries;
 
     public class Startup
     {
@@ -59,6 +60,9 @@ namespace FitnessShopSystem
 
             services
                 .AddTransient<IProgramService, ProgramService>();
+
+            services
+                .AddTransient<IDeliveryService, DeliveryService>();
 
         }
 

@@ -9,19 +9,19 @@
     using FitnessShopSystem.Models.Deliveries;
     using FitnessShopSystem.Services.Products;
     using AutoMapper;
+    using FitnessShopSystem.Services.Deliveries;
 
     public class DeliveriesController : Controller
     {
         private readonly IProductService products;
-        private readonly FitnessShopDbContext data;
-        private readonly IMapper mapper;
+        private readonly IDeliveryService deliveries;
 
-        public DeliveriesController(IProductService products,
-            FitnessShopDbContext data, IMapper mapper)
+        public DeliveriesController(
+            IProductService products,
+            IDeliveryService deliveries)
         {
             this.products = products;
-            this.data = data;
-            this.mapper = mapper;
+            this.deliveries = deliveries;
         }
 
         [Authorize]
@@ -36,23 +36,17 @@
 
             var userId = this.User.GetId();
 
-            var deliveryData = new Delivery
-            {
-                CustomerFirstName = delivery.CustomerFirstName,
-                CustomerLastName = delivery.CustomerFirstName,
-                Company = delivery.Company,
-                Address = delivery.Address,
-                PostalCode = delivery.PostalCode,
-                City = delivery.City,
-                Email = delivery.Email,
-                Country = delivery.Country,
-                Phone = delivery.Phone,
-                UserId = userId,
-                ProductId = product.Id,
-            };
-
-            this.data.Deliveries.Add(deliveryData);
-            this.data.SaveChanges();
+            this.deliveries.Create(delivery.CustomerFirstName,
+                delivery.CustomerLastName,
+                delivery.Company,
+                delivery.Address,
+                delivery.PostalCode,
+                delivery.City,
+                delivery.Email,
+                delivery.Country,
+                delivery.Phone,
+                userId,
+                product.Id);
 
             return RedirectToAction("All", "Products");
         }

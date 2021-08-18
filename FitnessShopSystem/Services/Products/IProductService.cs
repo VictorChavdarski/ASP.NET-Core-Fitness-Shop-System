@@ -1,7 +1,7 @@
 ﻿namespace FitnessShopSystem.Services.Products
 {
     using System.Collections.Generic;
-
+    using System.Threading.Tasks;
     using FitnessShopSystem.Models.Products;
     using FitnessShopSystem.Services.Products.Models;
 
@@ -13,6 +13,8 @@
             int currentPage);
 
         ProductDetailsServiceModel Details(int productId);
+
+        Task DeleteAsync(int id);
 
         int Create(
             string name,

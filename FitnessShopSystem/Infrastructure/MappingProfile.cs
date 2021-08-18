@@ -3,7 +3,6 @@
     using AutoMapper;
 
     using FitnessShopSystem.Data.Models;
-    using FitnessShopSystem.Models.Deliveries;
     using FitnessShopSystem.Models.Home;
     using FitnessShopSystem.Models.Products;
     using FitnessShopSystem.Models.Programs;
@@ -14,12 +13,15 @@
     {
         public MappingProfile()
         {
+            this.CreateMap<ProductDetailsServiceModel, ProductServiceModel>();
             this.CreateMap<Product, ProductIndexViewModel>();
             this.CreateMap<ProductDetailsServiceModel, ProductFormModel>();
             this.CreateMap<Product, ProductDetailsServiceModel>()
                 .ForMember(p => p.UserId, cfg => cfg.MapFrom(p => p.Manufacturer.UserId));
 
             this.CreateMap<ProgramDetailsServiceModel, ProgramFormModel>();
+            this.CreateMap<TrainingProgram, ProgramDetailsServiceModel>()
+                .ForMember(p => p.UserId, cfg => cfg.MapFrom(p => p.Instructor.UserId));
         }
     }
 }

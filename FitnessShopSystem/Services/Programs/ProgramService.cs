@@ -8,13 +8,19 @@
     using FitnessShopSystem.Models.Programs;
     using FitnessShopSystem.Services.Programs.Models;
   
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
+
     public class ProgramService : IProgramService
     {
         private readonly FitnessShopDbContext data;
+        private readonly IMapper mapper;
 
-        public ProgramService(FitnessShopDbContext data)
+        public ProgramService(FitnessShopDbContext data,
+            IMapper mapper)
         {
             this.data = data;
+            this.mapper = mapper;
         }
 
         public ProgramQueryServiceModel All(string name, string searchTerm, ProgramSorting sorting, int currentPage)
@@ -109,20 +115,7 @@
         => this.data
             .Programs
             .Where(p => p.Id == programId)
-            .Select(p => new ProgramDetailsServiceModel
-            {
-                Id = p.Id,
-                Name = p.Name,
-                Level = p.Level,
-                Description = p.Description,
-                ImageUrl = p.ImageUrl,
-                CategoryId = p.CategoryId,
-                CategoryName = p.Category.Name,
-                InstructorId = p.InstructorId,
-                InstructorName = p.Instructor.FirstName,
-                UserId = p.Instructor.UserId
-
-            })
+            .ProjectTo<ProgramDetailsServiceModel>(this.mapper.ConfigurationProvider)
             .FirstOrDefault();
 
         public bool Edit(int id, string name, string description, string level, string imageUrl, int categoryId, int instructorId)

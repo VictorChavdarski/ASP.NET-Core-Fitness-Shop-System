@@ -3,6 +3,7 @@
     using System.Linq;
 
     using FitnessShopSystem.Data;
+    using FitnessShopSystem.Data.Models;
 
     public class InstructorService : IInstructorService
     {
@@ -22,5 +23,23 @@
                 .Where(i => i.UserId == userId)
                 .Select(i => i.Id)
                 .FirstOrDefault();
+
+        public int Create(string firstName, string lastName, int age, string phoneNumber, string email, string userId)
+        {
+            var instruuctorData = new Instructor
+            {
+                FirstName = firstName,
+                LastName = lastName,
+                Age = age,
+                PhoneNumber = phoneNumber,
+                Email = email,
+                UserId = userId
+            };
+
+            this.data.Instructors.Add(instruuctorData);
+            this.data.SaveChanges();
+
+            return instruuctorData.Id;
+        }
     }
 }

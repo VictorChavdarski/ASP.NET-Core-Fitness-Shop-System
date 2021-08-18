@@ -14,6 +14,7 @@
     using FitnessShopSystem.Services.Products.Models;
 
     using AutoMapper;
+    using System.Threading.Tasks;
 
     public class ProductsController : Controller
     {
@@ -39,19 +40,11 @@
         {
             var product = this.products.Details(id);
 
-            return View(new ProductServiceModel
-            {
-                Id = product.Id,
-                Name = product.Name,
-                Brand = product.Brand,
-                Price = product.Price,
-                Description = product.Description,
-                ImageUrl = product.ImageUrl,
-                Flavour = product.Flavour,
-                CategoryId = product.CategoryId,
-                Categories = this.products.AllProductCategories()
-            });
+            var productData = this.mapper.Map<ProductServiceModel>(product);
 
+            productData.Categories = this.products.AllProductCategories();
+
+            return View(productData);
         }
 
         public IActionResult All([FromQuery] ProductSearchQueryModel query)
@@ -72,7 +65,8 @@
 
             productsQuery = query.Sorting switch
             {
-                ProductSorting.Price => productsQuery.OrderBy(p => p.Price),
+                ProductSorting.PriceAscending => productsQuery.OrderBy(p => p.Price),
+                ProductSorting.PriceDescending => productsQuery.OrderByDescending(p=>p.Price),
                 ProductSorting.DateCreated or _ => productsQuery.OrderByDescending(p => p.Id)
             };
 
@@ -226,6 +220,16 @@
             }
 
             return RedirectToAction(nameof(Mine));
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await this.products.DeleteAsync(id);
+
+            return RedirectToAction(nameof(Mine));
+        
         }
     }
 }

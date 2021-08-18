@@ -3,6 +3,7 @@
     public enum ProductSorting
     {
         DateCreated = 0,
-        Price = 1
+        PriceAscending = 1,
+        PriceDescending = 2,
     }
 }
