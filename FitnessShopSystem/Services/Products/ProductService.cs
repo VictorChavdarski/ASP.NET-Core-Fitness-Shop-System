@@ -1,6 +1,7 @@
 ﻿namespace FitnessShopSystem.Services.Products
 {
     using System.Linq;
+    using System.Threading.Tasks;
     using System.Collections.Generic;
 
     using FitnessShopSystem.Data;
@@ -10,7 +11,6 @@
 
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
-    using System.Threading.Tasks;
 
     public class ProductService : IProductService
     {

@@ -2,20 +2,20 @@ namespace FitnessShopSystem
 {
     using FitnessShopSystem.Data;
     using FitnessShopSystem.Infrastructure;
-    using FitnessShopSystem.Services.Manufacturers;
     using FitnessShopSystem.Services.Products;
-    using FitnessShopSystem.Services.Instructors;
     using FitnessShopSystem.Services.Programs;
+    using FitnessShopSystem.Services.Deliveries;
+    using FitnessShopSystem.Services.Instructors;
+    using FitnessShopSystem.Services.Manufacturers;
 
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Hosting;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
-    using FitnessShopSystem.Services.Deliveries;
 
     public class Startup
     {

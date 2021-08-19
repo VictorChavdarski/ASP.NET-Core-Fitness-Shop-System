@@ -8,11 +8,10 @@ namespace FitnessShopSystem.Services.Manufacturers
 
         public int GetId(string userId);
 
-        //ManufacturerDetailsServiceModel Details(int manufacturerId);
-
         int Create(
           string name,
           string phoneNumber,
+          string company,
           string userId
           );
          

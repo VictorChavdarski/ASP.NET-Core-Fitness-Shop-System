@@ -13,6 +13,7 @@
     using FitnessShopSystem.Services.Programs.Models;
 
     using AutoMapper;
+    using System.Threading.Tasks;
 
     public class ProgramsController : Controller
     {
@@ -209,6 +210,15 @@
             {
                 return BadRequest();
             }
+
+            return RedirectToAction(nameof(Mine));
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await this.programs.DeleteAsync(id);
 
             return RedirectToAction(nameof(Mine));
         }

@@ -25,12 +25,13 @@
                 .Select(m => m.Id)
                 .FirstOrDefault();
 
-        public int Create(string name, string phoneNumber, string userId)
+        public int Create(string name, string phoneNumber,string company, string userId)
         {
             var manufacturerData = new Manufacturer
             {
                 Name = name,
                 PhoneNumber = phoneNumber,
+                Company = company,
                 UserId = userId
             };
 

@@ -41,5 +41,7 @@
         }
 
         public IActionResult Error() => View();
+
+        public IActionResult Join() => View();
     }
 }

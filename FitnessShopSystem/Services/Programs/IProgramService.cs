@@ -1,5 +1,6 @@
 ﻿namespace FitnessShopSystem.Services.Programs
 {
+    using System.Threading.Tasks;
     using System.Collections.Generic;
 
     using FitnessShopSystem.Models.Programs;
@@ -13,6 +14,8 @@
          int currentPage);
 
         ProgramDetailsServiceModel Details(int programId);
+
+        Task DeleteAsync(int id);
 
         int Create(
             string name,

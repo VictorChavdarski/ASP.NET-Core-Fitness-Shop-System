@@ -33,11 +33,12 @@
 
             data.Categories.AddRange(new[]
             {
-                new Category {Name = "Supplements" },
-                new Category {Name = "Clothing" },
-                new Category {Name = "Beginner" },
-                new Category {Name = "Intermediate" },
-                new Category {Name = "Advanced" }
+                new Category {Name = "Protein" },
+                new Category {Name = "BCAA" },
+                new Category {Name = "Creatine" },
+                new Category {Name = "Vitamins" },
+                new Category {Name = "Gainers" },
+                new Category {Name = "Energy" },
             });
 
             data.SaveChanges();

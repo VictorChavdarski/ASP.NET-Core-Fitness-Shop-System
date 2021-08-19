@@ -28,13 +28,13 @@ else
         <tbody>
             @foreach (var program in Model)
             {
-                <tr>
-                    <td width="30%"><img width="100" class="mr-3" src="@program.ImageUrl" /></td>
-                    <td width="30%">@program.Id</td>
-                    <td width="30%">@program.Level</td>
-                    <td><a asp-controller="Programs" asp-action="Edit" asp-route-Id="@program.Id" class="btn btn-warning">Edit</a></td>
-                    <td><a asp-controller="Programs" asp-action="Delete" asp-route-Id="@program.Id" class="btn btn-danger">Delete</a></td>
-                </tr>
+            <tr>
+                <td width="30%"><img width="100" class="mr-3" src="@program.ImageUrl" /></td>
+                <td width="30%">@program.Id</td>
+                <td width="30%">@program.Level</td>
+                <td><a asp-controller="Programs" asp-action="Edit" asp-route-Id="@program.Id" class="btn btn-warning">Edit</a></td>
+              
+            </tr>
             }
         </tbody>
     </table>
@@ -42,4 +42,5 @@ else
 <div class="row" style="padding-top: 20px">
         <a asp-controller="Programs" asp-action="Add" class="btn btn-dark offset-5" style="background-color:black"><strong>Add new program</strong></a>
 </div>
+
 

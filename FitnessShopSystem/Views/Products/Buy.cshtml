@@ -12,16 +12,18 @@
         </div>
     </div>
     <div class="col-md-6">
-        <h4 class="pro-d-title font-weight-bold text-center" style="font-size:250%">
+        <h1 class="pro-d-title font-weight-bold text-center;" style="font-size:250%;text-align:center; color:black">
             @Model.Name
-        </h4>
-        <div class="m-bot15" style="font-size:150%"> <strong>Price : </strong><span class="price">@Model.Price</span></div>
+        </h1>
+        <div class="m-bot15" style="font-size:120%"> <strong>Price : </strong><span class="price">@Model.Price</span></div>
+        <div class="m-bot15" style="font-size:120%"> <strong>Flavour : </strong><span class="price">@Model.Flavour</span></div>
         <hr />
+        <p>
+            <a asp-controller="Deliveries" asp-action="Order" asp-route-id="@Model.Id" type="button" class="btn btn-outline-dark offset-4" style="font-weight:bold; width:40%">Buy It Now</a>
+        </p>
         <p>
             @Model.Description
         </p>
-        <p>
-            <a asp-controller="Deliveries" asp-action="Order" asp-route-id="@Model.Id" type="button" class="btn btn-outline-dark">Buy It Now</a>
-        </p>
+
     </div>
 </div>

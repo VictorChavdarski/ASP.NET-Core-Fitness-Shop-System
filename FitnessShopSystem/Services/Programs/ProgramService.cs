@@ -1,7 +1,8 @@
 ﻿namespace FitnessShopSystem.Services.Programs
 {
-    using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
+    using System.Collections.Generic;
 
     using FitnessShopSystem.Data;
     using FitnessShopSystem.Data.Models;
@@ -141,6 +142,14 @@
             this.data.SaveChanges();
 
             return true;
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            var program = this.data.Programs.Find(id);
+
+            this.data.Programs.Remove(program);
+            await this.data.SaveChangesAsync();
         }
     }
 }

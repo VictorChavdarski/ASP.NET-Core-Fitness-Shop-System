@@ -11,14 +11,19 @@
 
             <form method="post">
                 <div class="form-group">
-                    <label asp-for="Name">Name</label>
+                    <label style="font-weight:bold" asp-for="Name">Name</label>
                     <input asp-for="Name" class="form-control">
                     <span asp-validation-for="Name" class="small text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="PhoneNumber">Phone Number</label>
+                    <label style="font-weight:bold" asp-for="PhoneNumber">Phone Number</label>
                     <input asp-for="PhoneNumber" class="form-control">
                     <span asp-validation-for="PhoneNumber" class="small text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label style="font-weight:bold" asp-for="Company">Company Name</label>
+                    <input asp-for="Company" class="form-control">
+                    <span asp-validation-for="Company" class="small text-danger"></span>
                 </div>
                 <input class="btn btn-dark offset-5" style="background-color:black; font-weight:bold" type="submit" value="Join Us" />
             </form>

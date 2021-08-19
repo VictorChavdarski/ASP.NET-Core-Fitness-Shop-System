@@ -9,6 +9,9 @@
 
     public class ProductFormModel
     {
+        public int Id { get; set; }
+
+        public int MyProperty { get; set; }
         [Required]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength)]
         public string Name { get; set; }

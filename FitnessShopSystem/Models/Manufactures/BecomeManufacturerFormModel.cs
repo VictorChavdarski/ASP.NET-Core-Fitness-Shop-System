@@ -14,5 +14,10 @@
         [StringLength(PhoneNumberMaxLength, MinimumLength = PhoneNumberMinLength)]
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
+
+        [Required]
+        [StringLength(CompanyNameMaxLength, MinimumLength = CompanyNameMinLength)]
+        [Display(Name = "Company Name")]
+        public string Company { get; set; }
     }
 }

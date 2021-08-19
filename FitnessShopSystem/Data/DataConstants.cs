@@ -84,6 +84,9 @@
 
             public const int PhoneNumberMinLength = 10;
             public const int PhoneNumberMaxLength = 12;
+
+            public const int CompanyNameMinLength = 3;
+            public const int CompanyNameMaxLength = 30;
         }
 
         public class Category

@@ -38,6 +38,7 @@
             this.manufacturers.Create(
                 manufacturer.Name,
                 manufacturer.PhoneNumber,
+                manufacturer.Company,
                 userId);
 
             return RedirectToAction("Mine", "Products");
