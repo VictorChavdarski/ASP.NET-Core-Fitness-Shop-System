@@ -10,6 +10,8 @@
 
         public int TotalPrograms { get; set; }
 
+        public IEnumerable<string> Levels { get; set; }
+
         public IEnumerable<ProgramServiceModel> Programs { get; set; }
     }
 }

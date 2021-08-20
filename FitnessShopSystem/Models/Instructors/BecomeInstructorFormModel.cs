@@ -14,6 +14,7 @@
         [StringLength(FirstNameMaxLength, MinimumLength = FirstNameMinLength)]
         public string LastName { get; set; }
 
+        [Range(18,60)]
         public int Age { get; set; }
 
         [Required]

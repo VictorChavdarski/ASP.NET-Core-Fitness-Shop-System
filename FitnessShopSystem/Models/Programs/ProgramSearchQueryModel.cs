@@ -8,6 +8,7 @@
         public const int ProgramsPerPage = 6;
 
         public string Name { get; init; }
+
         public string Level { get; init; }
 
         [Display(Name = "Search")]

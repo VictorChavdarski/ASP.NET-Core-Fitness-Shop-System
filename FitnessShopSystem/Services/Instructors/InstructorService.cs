@@ -1,6 +1,7 @@
 ﻿namespace FitnessShopSystem.Services.Instructors
 {
     using System.Linq;
+    using System.Threading.Tasks;
 
     using FitnessShopSystem.Data;
     using FitnessShopSystem.Data.Models;
@@ -24,7 +25,7 @@
                 .Select(i => i.Id)
                 .FirstOrDefault();
 
-        public int Create(string firstName, string lastName, int age, string phoneNumber, string email, string userId)
+        public async Task CreateAsync(string firstName, string lastName, int age, string phoneNumber, string email, string userId)
         {
             var instruuctorData = new Instructor
             {
@@ -36,10 +37,8 @@
                 UserId = userId
             };
 
-            this.data.Instructors.Add(instruuctorData);
-            this.data.SaveChanges();
-
-            return instruuctorData.Id;
+            await this.data.Instructors.AddAsync(instruuctorData);
+            await this.data.SaveChangesAsync();
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿namespace FitnessShopSystem.Controllers
 {
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
 
@@ -19,7 +21,7 @@
 
         [HttpPost]
         [Authorize]
-        public IActionResult Create(BecomeManufacturerFormModel manufacturer)
+        public async Task<IActionResult> Create(BecomeManufacturerFormModel manufacturer)
         {
             var userId = this.User.GetId();
 
@@ -35,7 +37,7 @@
                 return View(manufacturer);
             }
 
-            this.manufacturers.Create(
+            await this.manufacturers.CreateAsync(
                 manufacturer.Name,
                 manufacturer.PhoneNumber,
                 manufacturer.Company,

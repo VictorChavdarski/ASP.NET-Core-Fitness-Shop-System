@@ -1,14 +1,13 @@
 ﻿namespace FitnessShopSystem.Controllers
 {
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
+    using System.Threading.Tasks;
 
-    using FitnessShopSystem.Data;
-    using FitnessShopSystem.Data.Models;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
+
     using FitnessShopSystem.Infrastructure;
     using FitnessShopSystem.Models.Deliveries;
     using FitnessShopSystem.Services.Products;
-    using AutoMapper;
     using FitnessShopSystem.Services.Deliveries;
 
     public class DeliveriesController : Controller
@@ -30,13 +29,18 @@
 
         [Authorize]
         [HttpPost]
-        public IActionResult Order(int id, DeliveryFormModel delivery)
+        public async Task<IActionResult> Order(int id, DeliveryFormModel delivery)
         {
             var product = this.products.Details(id); 
 
             var userId = this.User.GetId();
 
-            this.deliveries.Create(delivery.CustomerFirstName,
+            if (!ModelState.IsValid)
+            {
+                return View(delivery);
+            }
+
+            await this.deliveries.CreateAsync(delivery.CustomerFirstName,
                 delivery.CustomerLastName,
                 delivery.Company,
                 delivery.Address,

@@ -7,7 +7,7 @@
 
 @if (!Model.Any())
 {
-    <h2 class="text-center">You do not have any workouts!</h2>
+    <h2 class="text-center" style="color:black; font-weight:bold">You do not have any programs!</h2>
 }
 else
 {
@@ -21,6 +21,9 @@ else
                     Id
                 </th>
                 <th>
+                    Name
+                </th>
+                <th>
                     Level
                 </th>
             </tr>
@@ -31,6 +34,7 @@ else
             <tr>
                 <td width="30%"><img width="100" class="mr-3" src="@program.ImageUrl" /></td>
                 <td width="30%">@program.Id</td>
+                <td width="30%">@program.Name</td>
                 <td width="30%">@program.Level</td>
                 <td><a asp-controller="Programs" asp-action="Edit" asp-route-Id="@program.Id" class="btn btn-warning">Edit</a></td>
               

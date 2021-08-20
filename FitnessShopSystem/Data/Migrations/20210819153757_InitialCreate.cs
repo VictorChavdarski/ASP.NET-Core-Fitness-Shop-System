@@ -271,18 +271,11 @@ namespace FitnessShopSystem.Data.Migrations
                     Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Level = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
                     InstructorId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Programs", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Programs_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Programs_Instructors_InstructorId",
                         column: x => x.InstructorId,
@@ -409,11 +402,6 @@ namespace FitnessShopSystem.Data.Migrations
                 column: "ManufacturerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Programs_CategoryId",
-                table: "Programs",
-                column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Programs_InstructorId",
                 table: "Programs",
                 column: "InstructorId");
@@ -449,10 +437,10 @@ namespace FitnessShopSystem.Data.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Manufacturers");
+                name: "Categories");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "Manufacturers");
 
             migrationBuilder.DropTable(
                 name: "Instructors");

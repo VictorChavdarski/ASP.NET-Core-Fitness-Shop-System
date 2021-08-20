@@ -51,13 +51,6 @@
 
              builder
                 .Entity<TrainingProgram>()
-                .HasOne(c => c.Category)
-                .WithMany(c => c.Programs)
-                .HasForeignKey(c => c.CategoryId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-             builder
-                .Entity<TrainingProgram>()
                 .HasOne(p => p.Instructor)
                 .WithMany(m => m.Programs)
                 .HasForeignKey(p => p.InstructorId)

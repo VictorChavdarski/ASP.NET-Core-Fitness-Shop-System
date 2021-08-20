@@ -1,8 +1,10 @@
-﻿using FitnessShopSystem.Data;
-using FitnessShopSystem.Data.Models;
-
-namespace FitnessShopSystem.Services.Deliveries
+﻿namespace FitnessShopSystem.Services.Deliveries
 {
+    using System.Threading.Tasks;
+
+    using FitnessShopSystem.Data;
+    using FitnessShopSystem.Data.Models;
+
     public class DeliveryService : IDeliveryService
     {
         private readonly FitnessShopDbContext data;
@@ -10,7 +12,7 @@ namespace FitnessShopSystem.Services.Deliveries
         public DeliveryService(FitnessShopDbContext data)
             => this.data = data;
 
-        public int Create(string customerFirstName, string customerLastName, string company, string address, int postalCode, string city, string email, string country, string phone, string userId, int productId)
+        public async Task CreateAsync(string customerFirstName, string customerLastName, string company, string address, int postalCode, string city, string email, string country, string phone, string userId, int productId)
         {
             var deliveryData = new Delivery
             {
@@ -27,10 +29,8 @@ namespace FitnessShopSystem.Services.Deliveries
                 ProductId = productId
             };
 
-            this.data.Deliveries.Add(deliveryData);
-            this.data.SaveChanges();
-
-            return deliveryData.Id;
+            await this.data.Deliveries.AddAsync(deliveryData);
+            await this.data.SaveChangesAsync();
         }
     }
 }

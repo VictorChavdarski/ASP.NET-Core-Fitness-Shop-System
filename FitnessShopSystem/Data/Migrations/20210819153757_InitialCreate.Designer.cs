@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessShopSystem.Data.Migrations
 {
     [DbContext(typeof(FitnessShopDbContext))]
-    [Migration("20210819083404_InitialCreate")]
+    [Migration("20210819153757_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -247,9 +247,6 @@ namespace FitnessShopSystem.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(1000)
@@ -271,8 +268,6 @@ namespace FitnessShopSystem.Data.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
 
                     b.HasIndex("InstructorId");
 
@@ -542,19 +537,11 @@ namespace FitnessShopSystem.Data.Migrations
 
             modelBuilder.Entity("FitnessShopSystem.Data.Models.TrainingProgram", b =>
                 {
-                    b.HasOne("FitnessShopSystem.Data.Models.Category", "Category")
-                        .WithMany("Programs")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("FitnessShopSystem.Data.Models.Instructor", "Instructor")
                         .WithMany("Programs")
                         .HasForeignKey("InstructorId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("Category");
 
                     b.Navigation("Instructor");
                 });
@@ -613,8 +600,6 @@ namespace FitnessShopSystem.Data.Migrations
             modelBuilder.Entity("FitnessShopSystem.Data.Models.Category", b =>
                 {
                     b.Navigation("Products");
-
-                    b.Navigation("Programs");
                 });
 
             modelBuilder.Entity("FitnessShopSystem.Data.Models.Instructor", b =>

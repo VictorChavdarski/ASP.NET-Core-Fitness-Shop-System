@@ -12,12 +12,15 @@
         </div>
     </div>
     <div class="col-md-6">
-        <h4 class="pro-d-title font-weight-bold text-center" style="font-size:250%">
+        <h4 class="pro-d-title font-weight-bold text-center" style="font-size:250%; color:black">
             @Model.Name
         </h4>
-        <div class="m-bot15" style="font-size:150%"><span class="price">@Model.Level</span></div>
+        <div class="m-bot15" style="font-size:150%">
+            <span style="color:black; font-weight:bold">Level : @Model.Level</span>
+        </div>
         <hr />
         <p>
+            <h3 style="color:black; font-weight:bold"> Description   </h3>
             @Model.Description
         </p>
     </div>

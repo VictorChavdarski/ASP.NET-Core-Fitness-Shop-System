@@ -1,8 +1,9 @@
 ﻿namespace FitnessShopSystem.Services.Deliveries
 {
+    using System.Threading.Tasks;
     public interface IDeliveryService
     {
-        int Create(string customerFirstName,
+        Task CreateAsync(string customerFirstName,
             string customerLastName,
             string company,
             string address,

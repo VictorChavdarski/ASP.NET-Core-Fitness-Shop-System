@@ -6,30 +6,18 @@
 
 <form method="get">
     <div class="row">
-        <div class="form-group col-md-4">
-            <div class="form-group">
-                <label style="font-weight:bold" asp-for="Level"></label>
-                <select asp-for="Level" class="form-control">
-                    <option value="">All</option>
-                    @foreach (var level in Model.Levels)
-                    {
-                        <option value="@level">@level</option>
-                    }
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-5">
             <label style="font-weight:bold" asp-for="SearchTerm"></label>
             <input asp-for="SearchTerm" class="form-control" placeholder="Search">
         </div>
 
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-5">
             <div class="form-group">
                 <label style="font-weight:bold" asp-for="Sorting"></label>
                 <select asp-for="Sorting" class="form-control">
-                    <option value="0" selected>Newest</option>
-                    <option value="1">Level</option>
+                    <option value="0" selected>Latest Programs</option>
+                    <option value="1">Name Ascending</option>
+                    <option value="2">Name Descending</option>
                 </select>
             </div>
         </div>
@@ -51,8 +39,6 @@
 @if (!Model.Programs.Any())
 {
     <h2 class="text-center" style="color:black; font-weight:bold">There are no programs</h2>
-    @*<h3 class="text-center" style="color:black; margin-top:20px; font-weight:bold">Become trainer and add your own!</h3>
-    <a asp-controller="Programs" asp-action="Add" class="btn btn-dark" style="background-color:black; font-weight:bold ">Add new program</a>*@
 }
 else
 {

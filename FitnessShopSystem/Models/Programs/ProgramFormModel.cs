@@ -20,14 +20,12 @@
         [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength)]
         public string Description { get; set; }
        
+        [Required]
         public string Level { get; set; }
 
+        [Required]
         public string ImageUrl { get; set; }
 
 
-        [Display(Name = "Category")]
-        public int CategoryId { get; set; }
-
-        public IEnumerable<ProgramCategoryServiceModel> Categories { get; set; }
     }
 }

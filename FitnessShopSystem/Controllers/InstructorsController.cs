@@ -1,11 +1,13 @@
 ﻿namespace FitnessShopSystem.Controllers
 {
+    using System.Threading.Tasks;
+
     using FitnessShopSystem.Infrastructure;
     using FitnessShopSystem.Models.Instructors;
     using FitnessShopSystem.Services.Instructors;
 
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
 
     public class InstructorsController : Controller
     {
@@ -16,10 +18,11 @@
 
         [Authorize]
         public IActionResult Create() => View();
+     
 
         [HttpPost]
         [Authorize]
-        public IActionResult Create(BecomeInstructorFormModel instructor)
+        public async Task<IActionResult> Create(BecomeInstructorFormModel instructor)
         {
             var userId = this.User.GetId();
 
@@ -35,7 +38,7 @@
                 return View(instructor);
             }
 
-            this.instructors.Create(
+            await this.instructors.CreateAsync(
                 instructor.FirstName,
                 instructor.LastName,
                 instructor.Age,

@@ -42,7 +42,8 @@
 
             programQuery = sorting switch
             {
-                ProgramSorting.Level => programQuery.OrderBy(p => p.Level),
+                ProgramSorting.NameAscending => programQuery.OrderBy(p => p.Name),
+                ProgramSorting.NameDescending => programQuery.OrderByDescending(p => p.Name),
                 ProgramSorting.DateCreated or _ => programQuery.OrderByDescending(p => p.Id)
             };
 
@@ -60,17 +61,6 @@
                 Programs = programs
             };
         }
-
-        public IEnumerable<ProgramCategoryServiceModel> AllProgramCategories()
-        => this.data
-                .Categories
-                .Select(p => new ProgramCategoryServiceModel
-                {
-                    Id = p.Id,
-                    Name = p.Name
-                })
-                .ToList();
-
         public IEnumerable<ProgramServiceModel> ByUser(string userId)
                     => GetPrograms(this.data
                 .Programs
@@ -81,7 +71,7 @@
                 .Categories
                 .Any(c => c.Id == categoryId);
 
-        public int Create(string name, string level, string description,string imageUrl, int categoryId, int instructorId)
+        public async Task CreateAsync(string name, string level, string description,string imageUrl, int instructorId)
         {
             var programData = new TrainingProgram
             {
@@ -89,14 +79,11 @@
                 Level = level,
                 Description = description,
                 ImageUrl= imageUrl,
-                CategoryId = categoryId,
                 InstructorId = instructorId
             };
 
-            this.data.Programs.Add(programData);
-            this.data.SaveChanges();
-
-            return programData.Id;
+            await this.data.Programs.AddAsync(programData);
+            await this.data.SaveChangesAsync();
         }
 
         private static IEnumerable<ProgramServiceModel> GetPrograms(IQueryable<TrainingProgram> programQuery)
@@ -108,7 +95,6 @@
                  Level = p.Level,
                  Description = p.Description,
                  ImageUrl = p.ImageUrl,
-                 CategoryId = p.CategoryId
              })
              .ToList();
 
@@ -119,7 +105,7 @@
             .ProjectTo<ProgramDetailsServiceModel>(this.mapper.ConfigurationProvider)
             .FirstOrDefault();
 
-        public bool Edit(int id, string name, string description, string level, string imageUrl, int categoryId, int instructorId)
+        public bool Edit(int id, string name, string description, string level, string imageUrl, int instructorId)
         {
             var program = this.data.Programs.Find(id);
 
@@ -137,7 +123,6 @@
             program.Description = description;
             program.Level = level;
             program.ImageUrl = imageUrl;
-            program.CategoryId = categoryId;
 
             this.data.SaveChanges();
 
@@ -151,5 +136,13 @@
             this.data.Programs.Remove(program);
             await this.data.SaveChangesAsync();
         }
+
+        public IEnumerable<string> AllProgramLevels()
+           => this.data
+                .Programs
+                .Select(p => p.Level)
+                .Distinct()
+                .OrderBy(br => br)
+                .ToList();
     }
 }

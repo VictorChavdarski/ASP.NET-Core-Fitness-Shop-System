@@ -4,16 +4,6 @@
     ViewData["Title"] = "Fitness Shop";
 }
 
-@if (!Model.Products.Any())
-{
-    <div class="jumbotron jumbotron-fluid">
-        <div class="container">
-            <h1 class="display-4">Welcome to the best supplements shop in the world</h1>
-            <p class="lead">Sorry, currently there are no products in our website.</p>
-        </div>
-    </div>
-}
-
 <div class="row" style="position:absolute;left:0px; right:0px">
     <video style="position:relative; min-width:100%; min-height: 100%" autoplay muted loop id="myVideo">
         <source src="~/video.mp4" type="video/mp4">

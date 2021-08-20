@@ -11,6 +11,7 @@
 
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
+    using FitnessShopSystem.Models.Home;
 
     public class ProductService : IProductService
     {
@@ -68,7 +69,7 @@
             .ProjectTo<ProductDetailsServiceModel>(this.mapper.ConfigurationProvider)
             .FirstOrDefault();
 
-        public int Create(string name, string brand, decimal price, string description, string flavour, string imageUrl, int categoryId, int manufacturerId)
+        public async Task CreateAsync(string name, string brand, decimal price, string description, string flavour, string imageUrl, int categoryId, int manufacturerId)
         {
             var productData = new Product
             {
@@ -82,10 +83,9 @@
                 ManufacturerId = manufacturerId
             };
 
-            this.data.Products.Add(productData);
-            this.data.SaveChanges();
+            await this.data.Products.AddAsync(productData);
+            await this.data.SaveChangesAsync();
 
-            return productData.Id;
         }
 
         public bool Edit(int id, string name, string brand, decimal price, string description, string flavour, string imageUrl, int categoryId, int manufacturerId)
@@ -157,5 +157,16 @@
             this.data.Products.Remove(product);
             await this.data.SaveChangesAsync();
         }
+
+        public IEnumerable<string> AllProductBrands()
+             => this.data
+                .Products
+                .Select(p => p.Brand)
+                .Distinct()
+                .OrderBy(br => br)
+                .ToList();
+
+        public int TotalProducts()
+            => this.data.Products.Count();
     }
 }

@@ -1,12 +1,10 @@
 ﻿namespace FitnessShopSystem.Controllers
 {
-    using System.Linq;
-    using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
 
-    using FitnessShopSystem.Data;
     using FitnessShopSystem.Models.Products;
     using FitnessShopSystem.Infrastructure;
     using FitnessShopSystem.Services.Products;
@@ -14,88 +12,32 @@
     using FitnessShopSystem.Services.Products.Models;
 
     using AutoMapper;
-    using System.Threading.Tasks;
 
     public class ProductsController : Controller
     {
-        private readonly FitnessShopDbContext data;
+        private readonly IMapper mapper;
         private readonly IProductService products;
         private readonly IManufacturerService manufacturers;
-        private readonly IMapper mapper;
 
         public ProductsController(
-            FitnessShopDbContext data,
+            IMapper mapper,
             IProductService products,
-            IManufacturerService manufacturers,
-            IMapper mapper)
+            IManufacturerService manufacturers)
         {
-            this.data = data;
+            this.mapper = mapper;
             this.products = products;
             this.manufacturers = manufacturers;
-            this.mapper = mapper;
-        }
-
-        [Authorize]
-        public IActionResult Buy(int id)
-        {
-            var product = this.products.Details(id);
-
-            var productData = this.mapper.Map<ProductServiceModel>(product);
-
-            productData.Categories = this.products.AllProductCategories();
-
-            return View(productData);
         }
 
         public IActionResult All([FromQuery] ProductSearchQueryModel query)
         {
-            var productsQuery = this.data.Products.AsQueryable();
+            var queryResult = this.products.All(query.Brand,query.SearchTerm,query.Sorting,query.CurrentPage);
 
-            if (!string.IsNullOrWhiteSpace(query.Brand))
-            {
-                productsQuery = productsQuery.Where(p => p.Brand == query.Brand);
-            }
+            var productBrands = this.products.AllProductBrands();
 
-            if (!string.IsNullOrWhiteSpace(query.SearchTerm))
-            {
-                productsQuery = productsQuery.Where(p =>
-                       p.Brand.ToLower().Contains(query.SearchTerm.ToLower()) ||
-                       p.Description.ToLower().Contains(query.SearchTerm.ToLower()));
-            }
-
-            productsQuery = query.Sorting switch
-            {
-                ProductSorting.PriceAscending => productsQuery.OrderBy(p => p.Price),
-                ProductSorting.PriceDescending => productsQuery.OrderByDescending(p=>p.Price),
-                ProductSorting.DateCreated or _ => productsQuery.OrderByDescending(p => p.Id)
-            };
-
-            var totalProducts = productsQuery.Count();
-
-            var products = productsQuery
-                .Skip((query.CurrentPage - 1) * ProductSearchQueryModel.ProductsPerPage)
-                .Take(ProductSearchQueryModel.ProductsPerPage)
-                .Select(p => new ProductServiceModel
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Brand = p.Brand,
-                    Price = p.Price,
-                    ImageUrl = p.ImageUrl,
-                    Description = p.Description,
-                })
-                .ToList();
-
-            var productBrands = this.data
-                .Products
-                .Select(p => p.Brand)
-                .Distinct()
-                .OrderBy(br => br)
-                .ToList();
-
-            query.TotalProducts = totalProducts;
+            query.TotalProducts = queryResult.TotalProducts;
             query.Brands = productBrands;
-            query.Products = products;
+            query.Products = queryResult.Products;
 
             return View(query);
         }
@@ -116,7 +58,7 @@
 
         [HttpPost]
         [Authorize]
-        public IActionResult Add(ProductFormModel product)
+        public async Task<IActionResult> Add(ProductFormModel product)
         {
             var manufacturerId = this.manufacturers.GetId(this.User.GetId());
 
@@ -137,7 +79,7 @@
                 return View(product);
             }
 
-            this.products.Create(
+            await this.products.CreateAsync(
                product.Name,
                product.Brand,
                product.Price,
@@ -151,11 +93,24 @@
         }
 
         [Authorize]
-        public IActionResult Mine()
+        public IActionResult Buy(int id)
         {
-            var myProducts = this.products.ByUser(this.User.GetId());
+            var product = this.products.Details(id);
 
-            return View(myProducts);
+            var productData = this.mapper.Map<ProductServiceModel>(product);
+
+            productData.Categories = this.products.AllProductCategories();
+
+            return View(productData);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await this.products.DeleteAsync(id);
+
+            return RedirectToAction(nameof(Mine));
         }
 
         [Authorize]
@@ -222,14 +177,12 @@
             return RedirectToAction(nameof(Mine));
         }
 
-        [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Mine()
         {
-            await this.products.DeleteAsync(id);
+            var myProducts = this.products.ByUser(this.User.GetId());
 
-            return RedirectToAction(nameof(Mine));
-        
+            return View(myProducts);
         }
     }
 }

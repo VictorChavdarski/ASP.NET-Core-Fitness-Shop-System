@@ -1,10 +1,10 @@
 ﻿namespace FitnessShopSystem.Services.Manufacturers
 {
     using System.Linq;
-    using AutoMapper;
+    using System.Threading.Tasks;
+
     using FitnessShopSystem.Data;
     using FitnessShopSystem.Data.Models;
-    using FitnessShopSystem.Services.Manufacturers.Models;
 
     public class ManufacturerService : IManufacturerService
     {
@@ -25,7 +25,7 @@
                 .Select(m => m.Id)
                 .FirstOrDefault();
 
-        public int Create(string name, string phoneNumber,string company, string userId)
+        public async Task CreateAsync(string name, string phoneNumber,string company, string userId)
         {
             var manufacturerData = new Manufacturer
             {
@@ -35,10 +35,8 @@
                 UserId = userId
             };
 
-            this.data.Manufacturers.Add(manufacturerData);
-            this.data.SaveChanges();
-
-            return manufacturerData.Id;
+            await this.data.Manufacturers.AddAsync(manufacturerData);
+            await this.data.SaveChangesAsync();
         }
     }
 }

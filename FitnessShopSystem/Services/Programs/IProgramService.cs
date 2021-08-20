@@ -17,12 +17,11 @@
 
         Task DeleteAsync(int id);
 
-        int Create(
+        Task CreateAsync(
             string name,
             string level,
             string description,
             string imageUrl,
-            int categoryId,
             int instructorId);
 
         bool Edit(
@@ -31,13 +30,10 @@
            string description,
            string level,
            string imageUrl,
-           int categoryId,
            int instructorId);
 
+        public IEnumerable<string> AllProgramLevels();
+
         public IEnumerable<ProgramServiceModel> ByUser(string userId);
-
-        public IEnumerable<ProgramCategoryServiceModel> AllProgramCategories();
-
-        bool CategoryExist(int categoryId);
     }
 }

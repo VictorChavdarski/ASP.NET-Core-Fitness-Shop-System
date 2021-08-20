@@ -10,9 +10,7 @@
     public class Instructor
     {
         public Instructor()
-        {
-            this.Programs = new HashSet<TrainingProgram>();
-        }
+            => this.Programs = new HashSet<TrainingProgram>();
         public int Id { get; set; }
 
         [Required]

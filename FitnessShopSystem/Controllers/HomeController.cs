@@ -15,8 +15,9 @@
         private readonly FitnessShopDbContext data;
         private readonly IMapper mapper;
 
-        public HomeController(FitnessShopDbContext data,
-            IMapper mapper)
+        public HomeController(
+            IMapper mapper,
+            FitnessShopDbContext data)
         {
             this.data = data;
             this.mapper = mapper;

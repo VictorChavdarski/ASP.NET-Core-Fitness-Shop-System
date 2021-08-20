@@ -3,6 +3,7 @@
     public enum ProgramSorting
     {
         DateCreated = 0,
-        Level = 1,
+        NameAscending = 1,
+        NameDescending= 2
     }
 }

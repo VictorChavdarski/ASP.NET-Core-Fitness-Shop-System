@@ -10,9 +10,7 @@
     public class Manufacturer
     {
         public Manufacturer()
-        {
-            this.Products = new HashSet<Product>();
-        }
+            => this.Products = new HashSet<Product>();
 
         public int Id { get; init; }
 

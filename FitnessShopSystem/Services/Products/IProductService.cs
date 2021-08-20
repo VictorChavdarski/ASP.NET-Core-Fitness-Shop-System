@@ -1,7 +1,8 @@
 ﻿namespace FitnessShopSystem.Services.Products
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
+    using System.Collections.Generic;
+
     using FitnessShopSystem.Models.Products;
     using FitnessShopSystem.Services.Products.Models;
 
@@ -16,7 +17,7 @@
 
         Task DeleteAsync(int id);
 
-        int Create(
+        Task CreateAsync(
             string name,
             string brand,
             decimal price,
@@ -39,7 +40,11 @@
 
         public IEnumerable<ProductServiceModel> ByUser(string userId);
 
+        public IEnumerable<string> AllProductBrands();
+
         public IEnumerable<ProductCategoryServiceModel> AllProductCategories();
+
+        int TotalProducts();
 
         bool CategoryExist(int categoryId);
     }
