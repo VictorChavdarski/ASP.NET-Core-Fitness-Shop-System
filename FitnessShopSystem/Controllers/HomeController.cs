@@ -9,6 +9,7 @@
 
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
+    using Microsoft.AspNetCore.Authorization;
 
     public class HomeController : Controller
     {
@@ -44,5 +45,8 @@
         public IActionResult Error() => View();
 
         public IActionResult Join() => View();
+
+        [Authorize]
+        public IActionResult Chat() => View();
     }
 }

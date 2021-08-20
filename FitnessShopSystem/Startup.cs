@@ -16,6 +16,7 @@ namespace FitnessShopSystem
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using FitnessShopSystem.Hubs;
 
     public class Startup
     {
@@ -41,6 +42,8 @@ namespace FitnessShopSystem
                     options.Password.RequireNonAlphanumeric = false;
                 })
                 .AddEntityFrameworkStores<FitnessShopDbContext>();
+
+            services.AddSignalR();
 
             services.AddAutoMapper(typeof(Startup));
 
@@ -86,11 +89,13 @@ namespace FitnessShopSystem
             app
                 .UseHttpsRedirection()
                 .UseStaticFiles()
+                .UseCookiePolicy()
                 .UseRouting()
                 .UseAuthentication()
                 .UseAuthorization()
                 .UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<ChatHub>("/chat");
                 endpoints.MapDefaultAreaRoute();
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapRazorPages();
