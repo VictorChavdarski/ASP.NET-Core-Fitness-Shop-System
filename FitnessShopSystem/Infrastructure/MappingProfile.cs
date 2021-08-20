@@ -3,7 +3,6 @@
     using AutoMapper;
 
     using FitnessShopSystem.Data.Models;
-    using FitnessShopSystem.Models.Home;
     using FitnessShopSystem.Models.Products;
     using FitnessShopSystem.Models.Programs;
     using FitnessShopSystem.Services.Products.Models;
@@ -14,7 +13,7 @@
         public MappingProfile()
         {
             this.CreateMap<ProductDetailsServiceModel, ProductServiceModel>();
-            this.CreateMap<Product, ProductIndexViewModel>();
+            this.CreateMap<Product, LatestProductsServiceModel>();
             this.CreateMap<ProductDetailsServiceModel, ProductFormModel>();
             this.CreateMap<Product, ProductDetailsServiceModel>()
                 .ForMember(p => p.UserId, cfg => cfg.MapFrom(p => p.Manufacturer.UserId));

@@ -1,44 +1,31 @@
 ﻿namespace FitnessShopSystem.Controllers
 {
-    using System.Linq;
-
     using Microsoft.AspNetCore.Mvc;
-
-    using FitnessShopSystem.Data;
-    using FitnessShopSystem.Models.Home;
-
-    using AutoMapper;
-    using AutoMapper.QueryableExtensions;
     using Microsoft.AspNetCore.Authorization;
+
+    using FitnessShopSystem.Models.Home;
+    using FitnessShopSystem.Services.Products;
 
     public class HomeController : Controller
     {
-        private readonly FitnessShopDbContext data;
-        private readonly IMapper mapper;
+        private readonly IProductService products;
 
         public HomeController(
-            IMapper mapper,
-            FitnessShopDbContext data)
+            IProductService products)
         {
-            this.data = data;
-            this.mapper = mapper;
+            this.products = products;
         }
 
         public IActionResult Index()
         {
-            var totalProducts = this.data.Products.Count();
+            var totalProducts = this.products.TotalProducts();
 
-            var products = this.data
-                .Products
-                .OrderByDescending(p => p.Id)
-                .ProjectTo<ProductIndexViewModel>(this.mapper.ConfigurationProvider)
-                .Take(3)
-                .ToList();
+            var latestProducts = this.products.Latest(); 
 
             return View(new IndexViewModel
             {
                 TotalProducts = totalProducts,
-                Products = products
+                Products = latestProducts
             });
         }
 

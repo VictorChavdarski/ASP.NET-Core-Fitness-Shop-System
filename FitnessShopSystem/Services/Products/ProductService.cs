@@ -11,7 +11,6 @@
 
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
-    using FitnessShopSystem.Models.Home;
 
     public class ProductService : IProductService
     {
@@ -159,7 +158,7 @@
         }
 
         public IEnumerable<string> AllProductBrands()
-             => this.data
+            => this.data
                 .Products
                 .Select(p => p.Brand)
                 .Distinct()
@@ -168,5 +167,13 @@
 
         public int TotalProducts()
             => this.data.Products.Count();
+
+        public IEnumerable<LatestProductsServiceModel> Latest()
+            => this.data
+                .Products
+                .OrderByDescending(p => p.Id)
+                .ProjectTo<LatestProductsServiceModel>(this.mapper.ConfigurationProvider)
+                .Take(3)
+                .ToList();
     }
 }

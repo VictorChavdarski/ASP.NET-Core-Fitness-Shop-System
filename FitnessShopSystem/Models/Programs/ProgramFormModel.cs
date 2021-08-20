@@ -1,9 +1,6 @@
 ﻿namespace FitnessShopSystem.Models.Programs
 {
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-
-    using FitnessShopSystem.Services.Programs.Models;
 
     using static Data.DataConstants.TrainingProgram;
 

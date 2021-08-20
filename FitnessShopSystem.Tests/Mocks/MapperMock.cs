@@ -1,20 +1,21 @@
 ﻿namespace FitnessShopSystem.Tests.Mocks
 {
-    using Moq;
+    using FitnessShopSystem.Infrastructure;
+
     using AutoMapper;
 
-    public static class MapperMock 
+    public static class MapperMock
     {
         public static IMapper Instance
         {
             get
             {
-                var mapperMock = new Mock<IMapper>();
+                var mapperConfiguration = new MapperConfiguration(config =>
+                {
+                    config.AddProfile<MappingProfile>();
+                });
 
-                mapperMock.SetupGet(m => m.ConfigurationProvider)
-                    .Returns(Mock.Of<IConfigurationProvider>());
-
-                return mapperMock.Object;
+                return new Mapper(mapperConfiguration);
             }
         }
     }

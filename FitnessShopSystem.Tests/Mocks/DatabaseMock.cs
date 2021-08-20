@@ -1,7 +1,9 @@
 ﻿namespace FitnessShopSystem.Tests.Mocks
 {
     using System;
+
     using FitnessShopSystem.Data;
+
     using Microsoft.EntityFrameworkCore;
 
     public static class DatabaseMock

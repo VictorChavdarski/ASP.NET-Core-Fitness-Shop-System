@@ -38,11 +38,13 @@
             int categoryId,
             int manufacturerId);
 
-        public IEnumerable<ProductServiceModel> ByUser(string userId);
+        IEnumerable<LatestProductsServiceModel> Latest();
 
-        public IEnumerable<string> AllProductBrands();
+        IEnumerable<ProductServiceModel> ByUser(string userId);
 
-        public IEnumerable<ProductCategoryServiceModel> AllProductCategories();
+        IEnumerable<string> AllProductBrands();
+
+        IEnumerable<ProductCategoryServiceModel> AllProductCategories();
 
         int TotalProducts();
 

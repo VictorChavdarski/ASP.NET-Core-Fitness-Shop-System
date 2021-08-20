@@ -1,5 +1,6 @@
 ﻿namespace FitnessShopSystem.Models.Home
 {
+    using FitnessShopSystem.Services.Products.Models;
     using System.Collections.Generic;
 
     public class IndexViewModel
@@ -10,6 +11,6 @@
 
         public string SearchTerm { get; set; }
 
-        public List<ProductIndexViewModel> Products { get; set; }
+        public IEnumerable<LatestProductsServiceModel> Products { get; set; }
     }
 }

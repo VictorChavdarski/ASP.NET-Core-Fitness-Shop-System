@@ -1,49 +1,43 @@
 ﻿namespace FitnessShopSystem.Tests.Services
 {
     using FitnessShopSystem.Data.Models;
-    using FitnessShopSystem.Services.Manufacturers;
     using FitnessShopSystem.Tests.Mocks;
+    using FitnessShopSystem.Services.Manufacturers;
+
     using Xunit;
 
     public class ManufacturerServiceTest
     {
+        private const string UserId = "TestUserId";
+
         [Fact]
         public void IsManufacturerShouldReturnTrueWhenUserIsDealer()
         {
-            //Arrange
-            const string userId = "TestUserId";
+            var manufacturerService = GetManufacturerService();
 
-            using var data = DatabaseMock.Instance;
+            var result = manufacturerService.IsManufacturer(UserId);
 
-            data.Manufacturers.Add(new Manufacturer { UserId = userId});
-            data.SaveChanges();
-
-            var manufacturerService = new ManufacturerService(data);
-
-            //Act
-            var result = manufacturerService.IsManufacturer(userId);
-
-            //Assert
             Assert.True(result);
         }
 
         [Fact]
         public void IsManufacturerShouldReturnFalseWhenUserIsDealer()
         {
-            //Arrange
-            using var data = DatabaseMock.Instance;
+            var manufacturerService = GetManufacturerService();
 
-            data.Manufacturers.Add(new Manufacturer { UserId = "TestUserId" });
-            data.SaveChanges();
-
-            var manufacturerService = new ManufacturerService(data);
-
-            //Act
             var result = manufacturerService.IsManufacturer("AnotherUserId");
 
-            //Assert
             Assert.False(result);
         }
 
+        private static IManufacturerService GetManufacturerService()
+        {
+            var data = DatabaseMock.Instance;
+
+            data.Manufacturers.Add(new Manufacturer { UserId = UserId });
+            data.SaveChanges();
+
+            return new ManufacturerService(data);
+        }
     }
 }
