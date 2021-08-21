@@ -6,7 +6,7 @@
 
     using FitnessShopSystem.Data.Models;
 
-    public class FitnessShopDbContext : IdentityDbContext
+    public class FitnessShopDbContext : IdentityDbContext<User>
     {
         public FitnessShopDbContext(DbContextOptions<FitnessShopDbContext> options)
             : base(options)
@@ -44,7 +44,7 @@
 
              builder
                 .Entity<Manufacturer>()
-                .HasOne<IdentityUser>()
+                .HasOne<User>()
                 .WithOne()
                 .HasForeignKey<Manufacturer>(m => m.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
@@ -58,14 +58,14 @@
 
             builder
                 .Entity<Instructor>()
-                .HasOne<IdentityUser>()
+                .HasOne<User>()
                 .WithOne()
                 .HasForeignKey<Instructor>(m => m.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
                 .Entity<Delivery>()
-                .HasOne<IdentityUser>()
+                .HasOne<User>()
                 .WithOne()
                 .HasForeignKey<Delivery>(d => d.UserId)
                 .OnDelete(DeleteBehavior.Restrict);

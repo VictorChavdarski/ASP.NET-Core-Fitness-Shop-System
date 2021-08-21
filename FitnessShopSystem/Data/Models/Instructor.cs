@@ -33,7 +33,7 @@
 
         public string UserId { get; set; }
 
-        public virtual IdentityUser User { get; set; }
+        public User User { get; set; }
 
         public IEnumerable<TrainingProgram> Programs { get; set; }
 

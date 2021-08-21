@@ -7,6 +7,15 @@
 
     public class ProductsControllerTest
     {
-    
+        [Fact]
+        public void AddShouldReturnView()
+        {
+            var productController = new ProductsController(null, null, null);
+
+            var result = productController.Add();
+
+            Assert.NotNull(result);
+            Assert.IsType<ViewResult>(result);
+        }
     }
 }

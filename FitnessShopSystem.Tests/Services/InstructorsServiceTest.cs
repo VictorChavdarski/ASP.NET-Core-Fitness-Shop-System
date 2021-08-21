@@ -8,19 +8,20 @@
 
     public class InstructorsServiceTest
     {
+        const string UserId = "TestUserId";
+
         [Fact]
         public void IsInstructorShouldReturnTrueWhenUserIsInstructor()
         {
-            const string userId = "TestUserId";
 
             using var data = DatabaseMock.Instance;
 
-            data.Instructors.Add(new Instructor { UserId = userId });
+            data.Instructors.Add(new Instructor { UserId = UserId });
             data.SaveChanges();
 
             var instructorService = new InstructorService(data);
 
-            var result = instructorService.IsInstructor(userId);
+            var result = instructorService.IsInstructor(UserId);
 
             Assert.True(result);
         }
@@ -30,7 +31,7 @@
         {
             using var data = DatabaseMock.Instance;
 
-            data.Instructors.Add(new Instructor { UserId = "TestUserId" });
+            data.Instructors.Add(new Instructor { UserId = UserId });
             data.SaveChanges();
 
             var instructorService = new InstructorService(data);

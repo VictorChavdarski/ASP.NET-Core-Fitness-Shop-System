@@ -118,14 +118,14 @@
         {
             var userId = this.User.GetId();
 
-            if (!this.manufacturers.IsManufacturer(userId))
+            if (!this.manufacturers.IsManufacturer(userId) && !User.IsAdmin())
             {
                 return RedirectToAction(nameof(ManufacturesController.Create), "Manufactures");
             }
 
             var product = this.products.Details(id);
 
-            if (product.UserId != userId)
+            if (product.UserId != userId && !User.IsAdmin())
             {
                 return Unauthorized();
             }
@@ -141,14 +141,14 @@
         [HttpPost]
         public IActionResult Edit(int id, ProductServiceModel product)
         {
-            if (!this.manufacturers.IsManufacturer(this.User.GetId()))
+            if (!this.manufacturers.IsManufacturer(this.User.GetId()) && !User.IsAdmin())
             {
                 return RedirectToAction(nameof(ManufacturesController.Create), "Manufactures");
             }
 
             var manufacturerId = this.manufacturers.GetId(this.User.GetId());
 
-            if (manufacturerId == 0)
+            if (manufacturerId == 0 && !User.IsAdmin())
             {
                 return RedirectToAction(nameof(ManufacturesController.Create), "Manufactures");
             }
@@ -172,6 +172,11 @@
             if (!editedProduct)
             {
                 return BadRequest();
+            }
+
+            if (User.IsAdmin())
+            {
+                return RedirectToAction("All", "Products");
             }
 
             return RedirectToAction(nameof(Mine));

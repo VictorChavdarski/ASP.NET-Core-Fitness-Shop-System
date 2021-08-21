@@ -1,24 +1,26 @@
 ﻿namespace FitnessShopSystem.Areas.Identity.Pages.Account
 {
-    using System.ComponentModel.DataAnnotations;
     using System.Threading.Tasks;
+    using System.ComponentModel.DataAnnotations;
 
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc.RazorPages;
+
+    using FitnessShopSystem.Data.Models;
 
     using static Data.DataConstants.User;
 
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> signInManager;
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly SignInManager<User> signInManager;
+        private readonly UserManager<User> userManager;
 
         public RegisterModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+            UserManager<User> userManager,
+            SignInManager<User> signInManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
@@ -34,6 +36,10 @@
             [Required]
             [EmailAddress]
             public string Email { get; set; }
+
+            [Display(Name = "Full Name")]
+            [StringLength(FullNameMaxLength, MinimumLength = FullNameMinLength)]
+            public string FullName { get; set; }
 
             [Required]
             [StringLength(PasswordMaxLength, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = PasswordMinLength)]
@@ -57,7 +63,13 @@
 
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
+                var user = new User
+                {
+                    UserName = Input.Email,
+                    Email = Input.Email,
+                    FullName = Input.FullName
+                };
+
                 var result = await this.userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)

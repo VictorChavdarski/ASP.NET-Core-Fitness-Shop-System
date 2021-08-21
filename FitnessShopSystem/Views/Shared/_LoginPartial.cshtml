@@ -1,9 +1,10 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using FitnessShopSystem.Data.Models
 @using FitnessShopSystem.Services.Manufacturers
 @using FitnessShopSystem.Services.Instructors
 
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 @inject IManufacturerService Manufacturers
 @inject IInstructorService Instructors
 
@@ -14,9 +15,10 @@
         var userId = User.GetId();
         var userIsManufacturer = Manufacturers.IsManufacturer(userId);
         var userIsInstructor = Instructors.IsInstructor(userId);
+        var userIsAdmin = User.IsAdmin();
 
 
-        @if (userIsManufacturer && userIsInstructor)
+        @if (userIsManufacturer && userIsInstructor && !userIsAdmin)
         {
             <div class="btn-group offset-11">
                 <button type="button" class="btn btn-dark dropdown-toggle" style="background-color:black; font-weight:bold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -29,7 +31,7 @@
                 </div>
             </div>
         }
-        else if (userIsManufacturer)
+        else if (userIsManufacturer && !userIsAdmin)
         {
             <div class="btn-group offset-11">
                 <button type="button" class="btn btn-dark dropdown-toggle" style="background-color:black; font-weight:bold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -40,7 +42,7 @@
                 </div>
             </div>
         }
-        else if (userIsInstructor)
+        else if (userIsInstructor && !userIsAdmin)
         {
             <div class="btn-group offset-11">
                 <button type="button" class="btn btn-dark dropdown-toggle" style="background-color:black; font-weight:bold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -51,7 +53,7 @@
                 </div>
             </div>
         }
-        else
+        else if (!userIsAdmin)
         {
             <div class="btn-group offset-11">
                 <button type="button" class="btn btn-dark dropdown-toggle" style="background-color:black; font-weight:bold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -67,7 +69,7 @@
 
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="nav-link btn btn-link" style="color:black">Logout</button>
+                <button type="submit" class="nav-link btn btn-link" style="color:black;">Logout</button>
             </form>
         </li>
     }

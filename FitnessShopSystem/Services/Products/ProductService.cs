@@ -91,11 +91,6 @@
         {
             var product = this.data.Products.Find(id);
 
-            if (product.ManufacturerId != manufacturerId)
-            {
-                return false;
-            }
-
             if (product == null)
             {
                 return false;
@@ -135,6 +130,7 @@
                     Description = p.Description,
                     Flavour = p.Flavour,
                     ImageUrl = p.ImageUrl,
+                    CategoryName = p.Category.Name,
                     CategoryId = p.CategoryId
                 })
                 .ToList();

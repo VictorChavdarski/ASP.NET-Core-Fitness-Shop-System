@@ -19,7 +19,14 @@
         <div class="m-bot15" style="font-size:120%"> <strong>Flavour : </strong><span class="price">@Model.Flavour</span></div>
         <hr />
         <p>
-            <a asp-controller="Deliveries" asp-action="Order" asp-route-id="@Model.Id" type="button" class="btn btn-outline-dark offset-4" style="font-weight:bold; width:40%">Buy It Now</a>
+            @if (User.IsInRole(WebConstants.AdministratorRoleName))
+            {
+                <a asp-controller="Products" asp-action="Edit" asp-route-id="@Model.Id" type="button" class="btn btn-outline-dark offset-4" style="font-weight:bold; width:40%">Edit</a>
+            }
+            else
+            {
+                <a asp-controller="Deliveries" asp-action="Order" asp-route-id="@Model.Id" type="button" class="btn btn-outline-dark offset-4" style="font-weight:bold; width:40%">Buy It Now</a>
+            }
         </p>
         <p>
             @Model.Description

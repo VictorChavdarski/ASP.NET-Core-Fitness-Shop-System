@@ -18,7 +18,7 @@ else
                     Image
                 </th>
                 <th>
-                    Id
+                    Category
                 </th>
                 <th>
                     Brand
@@ -29,6 +29,9 @@ else
                 <th>
                     Flavour
                 </th>
+                <th>
+                    Id
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -36,10 +39,11 @@ else
             {
                 <tr>
                     <td width="30%"><img width="100" class="mr-3" src="@product.ImageUrl" /></td>
-                    <td width="30%">@product.Id</td>
+                    <td width="30%">@product.CategoryName</td>
                     <td width="30%">@product.Brand</td>
                     <td width="30%">@product.Price</td>
                     <td width="30%">@product.Flavour</td>
+                    <td width="30%">@product.Id</td>
                     <td><a asp-controller="Products" asp-action="Edit" asp-route-Id="@product.Id" class="btn btn-warning">Edit</a></td>
                 </tr>
             }

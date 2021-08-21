@@ -1,21 +1,22 @@
 ﻿namespace FitnessShopSystem.Areas.Identity.Pages.Account
 {
-    using System.ComponentModel.DataAnnotations;
     using System.Threading.Tasks;
+    using System.ComponentModel.DataAnnotations;
 
-    using Microsoft.AspNetCore.Authentication;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.AspNetCore.Authentication;
 
+    using FitnessShopSystem.Data.Models;
 
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> signInManager;
+        private readonly SignInManager<User> signInManager;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager)
+        public LoginModel(SignInManager<User> signInManager)
             => this.signInManager = signInManager;
 
         [BindProperty]

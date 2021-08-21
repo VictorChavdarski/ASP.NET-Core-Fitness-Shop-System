@@ -58,9 +58,7 @@
                 return RedirectToAction(nameof(InstructorsController.Create), "Instructors");
             }
 
-            return View(new ProgramFormModel
-            {
-            });
+            return View();
         }
 
         [HttpPost]

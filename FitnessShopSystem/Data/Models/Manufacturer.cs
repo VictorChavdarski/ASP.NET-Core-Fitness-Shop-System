@@ -28,7 +28,7 @@
 
         public string UserId { get; set; }
 
-        public virtual IdentityUser User { get; set; }
+        public User User { get; set; }
 
         public IEnumerable<Product> Products { get; set; }
     }
