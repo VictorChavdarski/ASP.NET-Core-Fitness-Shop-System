@@ -109,11 +109,6 @@
         {
             var program = this.data.Programs.Find(id);
 
-            if (program.InstructorId != instructorId)
-            {
-                return false;
-            }
-
             if (program == null)
             {
                 return false;

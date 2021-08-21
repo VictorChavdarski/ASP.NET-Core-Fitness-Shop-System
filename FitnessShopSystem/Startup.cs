@@ -1,6 +1,8 @@
 namespace FitnessShopSystem
 {
+    using FitnessShopSystem.Hubs;
     using FitnessShopSystem.Data;
+    using FitnessShopSystem.Data.Models;
     using FitnessShopSystem.Infrastructure;
     using FitnessShopSystem.Services.Products;
     using FitnessShopSystem.Services.Programs;
@@ -16,8 +18,7 @@ namespace FitnessShopSystem
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using FitnessShopSystem.Hubs;
-    using FitnessShopSystem.Data.Models;
+    
 
     public class Startup
     {

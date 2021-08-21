@@ -26,7 +26,6 @@
         [Authorize]
         public IActionResult Order() => View(); 
 
-
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> Order(int id, DeliveryFormModel delivery)
@@ -54,5 +53,7 @@
 
             return RedirectToAction("All", "Products");
         }
+
+        public IActionResult Information() => View();
     }
 }

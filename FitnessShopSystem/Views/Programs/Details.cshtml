@@ -18,6 +18,10 @@
         <div class="m-bot15" style="font-size:150%">
             <span style="color:black; font-weight:bold">Level : @Model.Level</span>
         </div>
+        @if (User.IsInRole(WebConstants.AdministratorRoleName))
+        {
+            <a asp-controller="Programs" asp-action="Edit" asp-route-id="@Model.Id" type="button" class="btn btn-outline-dark offset-4" style="font-weight:bold; width:40%">Edit</a>
+        }
         <hr />
         <p>
             <h3 style="color:black; font-weight:bold"> Description   </h3>

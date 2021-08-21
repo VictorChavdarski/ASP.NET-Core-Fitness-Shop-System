@@ -111,14 +111,14 @@
         {
             var userId = this.User.GetId();
 
-            if (!this.instructors.IsInstructor(userId))
+            if (!this.instructors.IsInstructor(userId) && !User.IsAdmin())
             {
                 return RedirectToAction(nameof(InstructorsController.Create), "Instructors");
             }
 
             var program = this.programs.Details(id);
 
-            if (program.UserId != userId)
+            if (program.UserId != userId && !User.IsAdmin())
             {
                 return Unauthorized();
             }
@@ -132,14 +132,14 @@
         [HttpPost]
         public IActionResult Edit(int id, ProgramServiceModel program)
         {
-            if (!this.instructors.IsInstructor(this.User.GetId()))
+            if (!this.instructors.IsInstructor(this.User.GetId()) && !User.IsAdmin())
             {
                 return RedirectToAction(nameof(InstructorsController.Create), "Instructors");
             }
 
             var instructorId = this.instructors.GetId(this.User.GetId());
 
-            if (instructorId == 0)
+            if (instructorId == 0 && !User.IsAdmin())
             {
                 return RedirectToAction(nameof(InstructorsController.Create), "Instructors");
             }
@@ -160,6 +160,11 @@
             if (!editedProgram)
             {
                 return BadRequest();
+            }
+
+            if (User.IsAdmin())
+            {
+                return RedirectToAction("All", "Programs");
             }
 
             return RedirectToAction(nameof(Mine));
