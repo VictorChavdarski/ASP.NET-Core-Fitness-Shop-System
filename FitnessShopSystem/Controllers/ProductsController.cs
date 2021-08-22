@@ -108,6 +108,13 @@
         [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
+            var product = this.products.Details(id);
+
+            if (product.UserId != this.User.GetId() && !User.IsAdmin())
+            {
+                return Unauthorized();
+            }
+
             await this.products.DeleteAsync(id);
 
             return RedirectToAction(nameof(Mine));
@@ -137,8 +144,8 @@
             return View(productForm);
         }
 
-        [Authorize]
         [HttpPost]
+        [Authorize]
         public IActionResult Edit(int id, ProductServiceModel product)
         {
             if (!this.manufacturers.IsManufacturer(this.User.GetId()) && !User.IsAdmin())

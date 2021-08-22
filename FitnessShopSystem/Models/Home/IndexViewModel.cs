@@ -1,7 +1,8 @@
 ﻿namespace FitnessShopSystem.Models.Home
 {
-    using FitnessShopSystem.Services.Products.Models;
     using System.Collections.Generic;
+
+    using FitnessShopSystem.Services.Products.Models;
 
     public class IndexViewModel
     {

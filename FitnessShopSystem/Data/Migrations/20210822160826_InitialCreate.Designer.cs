@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessShopSystem.Data.Migrations
 {
     [DbContext(typeof(FitnessShopDbContext))]
-    [Migration("20210821062602_UserFullNameColumn")]
-    partial class UserFullNameColumn
+    [Migration("20210822160826_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -207,6 +207,9 @@ namespace FitnessShopSystem.Data.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("DeliveryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(1000)
@@ -234,6 +237,8 @@ namespace FitnessShopSystem.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("DeliveryId");
 
                     b.HasIndex("ManufacturerId");
 
@@ -294,8 +299,8 @@ namespace FitnessShopSystem.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("FullName")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -528,6 +533,10 @@ namespace FitnessShopSystem.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("FitnessShopSystem.Data.Models.Delivery", null)
+                        .WithMany("Products")
+                        .HasForeignKey("DeliveryId");
+
                     b.HasOne("FitnessShopSystem.Data.Models.Manufacturer", "Manufacturer")
                         .WithMany("Products")
                         .HasForeignKey("ManufacturerId")
@@ -602,6 +611,11 @@ namespace FitnessShopSystem.Data.Migrations
                 });
 
             modelBuilder.Entity("FitnessShopSystem.Data.Models.Category", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("FitnessShopSystem.Data.Models.Delivery", b =>
                 {
                     b.Navigation("Products");
                 });

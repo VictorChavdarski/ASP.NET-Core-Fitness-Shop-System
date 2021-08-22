@@ -23,6 +23,7 @@
             this.data = data;
             this.mapper = mapper;
         }
+
         public ProductQueryServiceModel All(string brand, string searchTerm, ProductSorting sorting, int currentPage)
         {
             var productsQuery = this.data.Products.AsQueryable();

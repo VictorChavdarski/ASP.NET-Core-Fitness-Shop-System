@@ -1,8 +1,7 @@
 ﻿namespace FitnessShopSystem.Data
 {
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
     using FitnessShopSystem.Data.Models;
 
@@ -24,7 +23,6 @@
         public DbSet<Manufacturer> Manufacturers { get; set; }
 
         public DbSet<Delivery> Deliveries { get; set; }
-
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
