@@ -18,6 +18,7 @@
             this.CreateMap<Product, ProductDetailsServiceModel>()
                 .ForMember(p => p.UserId, cfg => cfg.MapFrom(p => p.Manufacturer.UserId));
 
+            this.CreateMap<TrainingProgram, LatestProgramsServiceModel>();
             this.CreateMap<ProgramDetailsServiceModel, ProgramFormModel>();
             this.CreateMap<TrainingProgram, ProgramDetailsServiceModel>()
                 .ForMember(p => p.UserId, cfg => cfg.MapFrom(p => p.Instructor.UserId));

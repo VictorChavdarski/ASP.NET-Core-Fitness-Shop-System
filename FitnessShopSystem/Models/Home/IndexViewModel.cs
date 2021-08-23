@@ -3,6 +3,7 @@
     using System.Collections.Generic;
 
     using FitnessShopSystem.Services.Products.Models;
+    using FitnessShopSystem.Services.Programs.Models;
 
     public class IndexViewModel
     {
@@ -13,5 +14,7 @@
         public string SearchTerm { get; set; }
 
         public IEnumerable<LatestProductsServiceModel> Products { get; set; }
+
+        public IEnumerable<LatestProgramsServiceModel> Programs { get; set; }
     }
 }

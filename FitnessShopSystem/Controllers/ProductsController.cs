@@ -89,7 +89,7 @@
                product.CategoryId,
                manufacturerId);
 
-            return RedirectToAction(nameof(All));
+            return RedirectToAction(nameof(Mine));
         }
 
         [Authorize]

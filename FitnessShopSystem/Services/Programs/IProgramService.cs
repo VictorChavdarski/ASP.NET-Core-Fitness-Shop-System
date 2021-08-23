@@ -32,6 +32,8 @@
            string imageUrl,
            int instructorId);
 
+        IEnumerable<LatestProgramsServiceModel> Latest();
+
         public IEnumerable<string> AllProgramLevels();
 
         public IEnumerable<ProgramServiceModel> ByUser(string userId);

@@ -139,5 +139,13 @@
                 .Distinct()
                 .OrderBy(br => br)
                 .ToList();
+
+        public IEnumerable<LatestProgramsServiceModel> Latest()
+         => this.data
+                .Programs
+                .OrderByDescending(p => p.Id)
+                .ProjectTo<LatestProgramsServiceModel>(this.mapper.ConfigurationProvider)
+                .Take(3)
+                .ToList();
     }
 }
