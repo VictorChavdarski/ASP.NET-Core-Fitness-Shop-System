@@ -1,7 +1,7 @@
 ﻿namespace FitnessShopSystem.Infrastructure
 {
-    using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Routing;
+    using Microsoft.AspNetCore.Builder;
 
     public static class EndpointRouteBuilderExtensions
     {
