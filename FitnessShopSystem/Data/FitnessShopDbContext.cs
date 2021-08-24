@@ -24,6 +24,8 @@
 
         public DbSet<Delivery> Deliveries { get; set; }
 
+        public DbSet<Contact> Contacts { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder
@@ -66,6 +68,13 @@
                 .HasOne<User>()
                 .WithOne()
                 .HasForeignKey<Delivery>(d => d.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<Contact>()
+                .HasOne<User>()
+                .WithOne()
+                .HasForeignKey<Contact>(c => c.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(builder);

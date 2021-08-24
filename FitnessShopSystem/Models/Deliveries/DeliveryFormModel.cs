@@ -1,10 +1,7 @@
 ﻿namespace FitnessShopSystem.Models.Deliveries
 {
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using FitnessShopSystem.Data.Models;
-    using FitnessShopSystem.Services.Products.Models;
     using static Data.DataConstants.Delivery;
 
     public class DeliveryFormModel

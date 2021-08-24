@@ -4,6 +4,7 @@ namespace FitnessShopSystem
     using FitnessShopSystem.Data;
     using FitnessShopSystem.Data.Models;
     using FitnessShopSystem.Infrastructure;
+    using FitnessShopSystem.Services.Contacts;
     using FitnessShopSystem.Services.Products;
     using FitnessShopSystem.Services.Programs;
     using FitnessShopSystem.Services.Deliveries;
@@ -18,7 +19,6 @@ namespace FitnessShopSystem
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    
 
     public class Startup
     {
@@ -72,6 +72,8 @@ namespace FitnessShopSystem
             services
                 .AddTransient<IDeliveryService, DeliveryService>();
 
+            services
+                .AddTransient<IContactsService, ContactsService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -103,8 +105,6 @@ namespace FitnessShopSystem
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapRazorPages();
             });
-
-
         }
     }
 }

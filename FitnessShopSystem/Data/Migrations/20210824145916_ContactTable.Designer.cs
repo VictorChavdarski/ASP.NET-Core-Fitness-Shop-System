@@ -4,14 +4,16 @@ using FitnessShopSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FitnessShopSystem.Data.Migrations
 {
     [DbContext(typeof(FitnessShopDbContext))]
-    partial class FitnessShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210824145916_ContactTable")]
+    partial class ContactTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

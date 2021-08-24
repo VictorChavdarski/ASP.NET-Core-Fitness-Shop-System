@@ -17,7 +17,7 @@
         [Fact]
         public void ErrorShouldReturnView()
         {
-            var homeController = new HomeController( null);
+            var homeController = new HomeController(null,null,null,null);
 
             var result = homeController.Error();
 
@@ -37,7 +37,7 @@
             data.SaveChanges();
 
             var productService = new ProductService(data, mapper);
-            var homeController = new HomeController(productService);
+            var homeController = new HomeController(data,productService,null,null);
 
             var result = homeController.Index();
 
@@ -54,7 +54,7 @@
         [Fact]
         public void ChatShouldReturnView()
         {
-            var homeController = new HomeController(null);
+            var homeController = new HomeController(null,null,null,null);
 
             var result = homeController.Chat();
 
@@ -65,7 +65,7 @@
         [Fact]
         public void JoinShouldReturnView()
         {
-            var homeController = new HomeController(null);
+            var homeController = new HomeController(null,null,null,null);
 
             var result = homeController.Join();
 

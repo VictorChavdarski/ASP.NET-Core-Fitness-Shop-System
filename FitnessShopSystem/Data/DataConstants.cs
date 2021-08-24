@@ -96,5 +96,20 @@
         {
             public const int NameMaxLength = 20;
         }
+
+        public class Contact
+        {
+            public const int FirstNameMinLength = 2;
+            public const int FirstNameMaxLength = 20;
+
+            public const int LastNameMinLength = 2;
+            public const int LastNameMaxLength = 20;
+
+            public const int CountryNameMinLength = 3;
+            public const int CountryNameMaxLength = 30;
+
+            public const int SubjectMinLength = 20;
+            public const int SubjectMaxLength = 2000;
+        }
     }
 }
