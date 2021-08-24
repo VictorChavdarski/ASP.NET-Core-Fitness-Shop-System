@@ -135,19 +135,7 @@ namespace FitnessShopSystem.Data.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("UserId1")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("Deliveries");
                 });
@@ -533,20 +521,6 @@ namespace FitnessShopSystem.Data.Migrations
                     b.HasOne("FitnessShopSystem.Data.Models.User", null)
                         .WithOne()
                         .HasForeignKey("FitnessShopSystem.Data.Models.Contact", "UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("FitnessShopSystem.Data.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("FitnessShopSystem.Data.Models.Delivery", b =>
-                {
-                    b.HasOne("FitnessShopSystem.Data.Models.User", null)
-                        .WithOne()
-                        .HasForeignKey("FitnessShopSystem.Data.Models.Delivery", "UserId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("FitnessShopSystem.Data.Models.User", "User")

@@ -12,7 +12,7 @@
         public DeliveryService(FitnessShopDbContext data)
             => this.data = data;
 
-        public async Task CreateAsync(string customerFirstName, string customerLastName, string company, string address, int postalCode, string city, string email, string country, string phone, string userId, int productId)
+        public async Task CreateAsync(string customerFirstName, string customerLastName, string company, string address, int postalCode, string city, string email, string country, string phone, int productId)
         {
             var deliveryData = new Delivery
             {
@@ -25,7 +25,6 @@
                 Email = email,
                 Country = country,
                 Phone = phone,
-                UserId = userId,
                 ProductId = productId
             };
 

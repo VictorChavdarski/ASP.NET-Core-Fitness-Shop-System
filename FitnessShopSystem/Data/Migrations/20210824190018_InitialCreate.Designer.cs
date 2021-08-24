@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessShopSystem.Data.Migrations
 {
     [DbContext(typeof(FitnessShopDbContext))]
-    [Migration("20210824145916_ContactTable")]
-    partial class ContactTable
+    [Migration("20210824190018_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -137,19 +137,7 @@ namespace FitnessShopSystem.Data.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("UserId1")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("Deliveries");
                 });
@@ -535,20 +523,6 @@ namespace FitnessShopSystem.Data.Migrations
                     b.HasOne("FitnessShopSystem.Data.Models.User", null)
                         .WithOne()
                         .HasForeignKey("FitnessShopSystem.Data.Models.Contact", "UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("FitnessShopSystem.Data.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("FitnessShopSystem.Data.Models.Delivery", b =>
-                {
-                    b.HasOne("FitnessShopSystem.Data.Models.User", null)
-                        .WithOne()
-                        .HasForeignKey("FitnessShopSystem.Data.Models.Delivery", "UserId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("FitnessShopSystem.Data.Models.User", "User")

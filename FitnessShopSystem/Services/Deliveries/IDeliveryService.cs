@@ -12,7 +12,6 @@
             string email,
             string country,
             string phone,
-            string userId,
             int productId);
     }
 }

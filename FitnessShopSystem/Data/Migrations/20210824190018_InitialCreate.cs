@@ -61,6 +61,28 @@ namespace FitnessShopSystem.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Deliveries",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CustomerFirstName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    CustomerLastName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Company = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PostalCode = table.Column<int>(type: "int", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Country = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Deliveries", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -167,35 +189,30 @@ namespace FitnessShopSystem.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Deliveries",
+                name: "Contacts",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerFirstName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    CustomerLastName = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    Company = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    PostalCode = table.Column<int>(type: "int", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Country = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    Subject = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    ProductId = table.Column<int>(type: "int", nullable: false)
+                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Deliveries", x => x.Id);
+                    table.PrimaryKey("PK_Contacts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Deliveries_AspNetUsers_UserId",
+                        name: "FK_Contacts_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Deliveries_AspNetUsers_UserId1",
+                        name: "FK_Contacts_AspNetUsers_UserId1",
                         column: x => x.UserId1,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -364,15 +381,15 @@ namespace FitnessShopSystem.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Deliveries_UserId",
-                table: "Deliveries",
+                name: "IX_Contacts_UserId",
+                table: "Contacts",
                 column: "UserId",
                 unique: true,
                 filter: "[UserId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Deliveries_UserId1",
-                table: "Deliveries",
+                name: "IX_Contacts_UserId1",
+                table: "Contacts",
                 column: "UserId1");
 
             migrationBuilder.CreateIndex(
@@ -436,6 +453,9 @@ namespace FitnessShopSystem.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Contacts");
 
             migrationBuilder.DropTable(
                 name: "Products");

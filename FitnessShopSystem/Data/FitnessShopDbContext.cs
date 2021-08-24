@@ -64,13 +64,6 @@
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
-                .Entity<Delivery>()
-                .HasOne<User>()
-                .WithOne()
-                .HasForeignKey<Delivery>(d => d.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder
                 .Entity<Contact>()
                 .HasOne<User>()
                 .WithOne()

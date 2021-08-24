@@ -3,8 +3,6 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using Microsoft.AspNetCore.Identity;
-
     using static DataConstants.Delivery;
 
     public class Delivery
@@ -45,10 +43,6 @@
         [Required]
         [EmailAddress]
         public string Email { get; set; }
-
-        public string UserId { get; set; }
-
-        public User User { get; set; }
 
         public int ProductId { get; set; }
 
