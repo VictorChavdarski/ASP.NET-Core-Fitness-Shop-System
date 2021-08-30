@@ -2,7 +2,7 @@
 Fitness Shop System is an educational project. The application allows users to become sellers, fitness instructors or just let them review and buy supplements.
 
 ## Table of Contents
-1. [Technology stack]
+1. [Technology stack] Technology stack
 2. [Screenshots]
 3. [Application Configurations]
 4. [Credits]
@@ -43,7 +43,11 @@ https://user-images.githubusercontent.com/61271848/131348388-dd866a1a-07b8-4e2c-
 ### Join Us Page
 ![Join us page](https://user-images.githubusercontent.com/61271848/131348248-f4fa2e7f-4830-43e3-b12b-92dc160a1637.png)
 
-### Warnings
+### Add Product Page
+![Add product page](https://user-images.githubusercontent.com/61271848/131348931-8f1274d8-734d-4952-89b5-bce29b8c2b05.png)
+
+### Delete Product Warning
+![Delete warning](https://user-images.githubusercontent.com/61271848/131349340-8ecb6d0c-a358-4f4e-ace1-fd602dfc58e9.png)
 
 ## Credits
 
