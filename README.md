@@ -1,12 +1,6 @@
 # ASP.NET-Core-Fitness-Shop-System
 Fitness Shop System is an educational project. The application allows users to become sellers, fitness instructors or just let them review and buy supplements.
 
-## Table of Contents
-1. [Technology stack] Technology stack
-2. [Screenshots]
-3. [Application Configurations]
-4. [Credits]
-
 ## Technology stack:
 
 - ASP.NET Core 5.0
