@@ -1,6 +1,6 @@
 # ASP.NET-Core Supplements Shop System
 Fitness Shop System is an educational project. The application allows users to become sellers, fitness instructors or just let them review and buy supplements.
-Administrator role is available: email: administrator@fss.com / password: administrator
+Administrator role is available - email: administrator@fss.com / password: administrator
 ## Technology stack:
 
 - ASP.NET Core 5.0
