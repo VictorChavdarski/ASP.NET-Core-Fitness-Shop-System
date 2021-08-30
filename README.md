@@ -32,12 +32,16 @@ Fitness Shop System is an educational project. The application allows users to b
 ## Screenshots:
 
 ### Home Page (guest)
+https://user-images.githubusercontent.com/61271848/131348388-dd866a1a-07b8-4e2c-8e36-fefb2ebc7116.mp4
 
 ### Log In Page 
+![Log in page](https://user-images.githubusercontent.com/61271848/131348103-a3015604-058e-418c-95c4-d08500efe48a.png)
 
-### Register Page (admin/teacher)
+### Register Page
+![Create account page](https://user-images.githubusercontent.com/61271848/131348296-b2a287c4-57be-4d21-8540-3129d76ba6ef.png)
 
-### Join Us Page (student)
+### Join Us Page
+![Join us page](https://user-images.githubusercontent.com/61271848/131348248-f4fa2e7f-4830-43e3-b12b-92dc160a1637.png)
 
 ### Warnings
 
